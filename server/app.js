@@ -1,0 +1,21 @@
+const express = require('express');
+const app = express();
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const path = require('path');
+
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use('/api', require('./routes'));
+app.use('/dist', express.static(path.join(__dirname, '..', 'dist')));
+
+app.get('/', (req, res, next) => {
+  res.sendFile(path.join(__dirname, '..', 'index.html'));
+})
+
+app.use((err, req, res, next) => {
+  console.log(err)
+  res.status(err.status || 500).send({ error: err.message })
+})
+
+module.exports = app;

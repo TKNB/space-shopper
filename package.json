@@ -1,0 +1,54 @@
+{
+  "name": "space-shopper",
+  "version": "1.0.0",
+  "description": "Grace Shopper Full Stack Academy Senior Phase Group Project",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "express": "^4.16.3",
+    "morgan": "^1.9.1",
+    "pg": "^7.4.3",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "sequelize": "^4.38.0",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
+  "devDependencies": {},
+  "scripts": {
+    "postinstall": "npm run webpack",
+    "start": "node server/index.js",
+    "webpack": "./node_modules/webpack/bin/webpack.js",
+    "start:dev": "npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/space-shopper nodemon server/index.js --ignore src/ --ignore dist",
+    "test:dev": "JWT_SECRET=foo DATABASE_URL=postgres://localhost/space-shopper-test nodemon ./node_modules/mocha/bin/mocha server/*test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TKNB/space-shopper.git"
+  },
+  "keywords": [],
+  "authors": [
+    "Tom Licitra, Kazniyaz Kabyldenov, Nicholas Melhado, Bobby Hirtle"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TKNB/space-shopper/issues"
+  },
+  "homepage": "https://github.com/TKNB/space-shopper#readme"
+}
