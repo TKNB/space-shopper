@@ -1,4 +1,5 @@
 const conn = require('./conn');
+const Sequelize = conn.Sequelize;
 
 const User = conn.define('users', {
   id: {
@@ -11,7 +12,7 @@ const User = conn.define('users', {
     allowNull: false,
     validate: {
       isEmail: true,
-      notEmpty: true
+      notEmpty: true,
     },
   },
   firstName: {
@@ -38,5 +39,8 @@ const User = conn.define('users', {
     },
   },
 });
+
+//Order.belongsTo(User)
+//User.hasMany(Order)
 
 module.exports = User;
