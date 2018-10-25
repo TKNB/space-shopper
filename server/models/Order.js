@@ -11,27 +11,7 @@ const Order = conn.define('order', {
     type: conn.Sequelize.BOOLEAN,
     allowNull: false,
     defaultValue: false 
-  },
-  // Keeps track of when the cart was first started.
-  createdAt: {
-    type: conn.Sequelize.DATE,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') 
-  },
-  // Keeps track of when the cart was turned into an order.
-  completedAt: {
-    type: conn.Sequelize.DATE,
-    allowNull: true,
-    defaultValue: null 
   }
-}, {
-    hooks: {
-      // When an order is marked as complete, this hook will automatically update the completedAt column.
-      beforeUpdate: order => {
-        if(order.complete === true) {
-            order.completedAt = Sequelize.literal('CURRENT_TIMESTAMP');
-        }
-      }
-    }
 });
 
 /*
