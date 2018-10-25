@@ -1,5 +1,4 @@
 const conn = require('./conn');
-const Sequelize = require('sequelize');
 
 const User = conn.define('users', {
   id: {
@@ -12,12 +11,12 @@ const User = conn.define('users', {
     allowNull: false,
     validate: {
       isEmail: true,
+      notEmpty: true
     },
   },
   firstName: {
     type: Sequelize.STRING,
     allowNull: false,
-
     validate: {
       notEmpty: true,
       is: ['^[a-z]+$', 'i'],
