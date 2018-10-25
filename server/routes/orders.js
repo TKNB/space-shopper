@@ -7,9 +7,6 @@ const LineItem = require('../models/LineItem');
 
 // Begin Order API calls
 
-// Do we need body-parser, or does it come in with our router?
-router.use(require('body-parser').json());
-
 // Get all orders
 router.get('/', (req, res, next) => {
   Order.findAll({
