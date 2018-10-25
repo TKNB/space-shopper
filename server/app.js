@@ -7,7 +7,8 @@ const path = require('path');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use('/api', require('./routes'));
-app.use('/dist', express.static(path.join(__dirname, '..', 'dist')));
+app.use(express.static(path.join(__dirname, '..', 'dist')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('/', (req, res, next) => {
   res.sendFile(path.join(__dirname, '..', 'index.html'));
