@@ -12,7 +12,9 @@ router.use(require('body-parser').json());
 
 // Get all orders
 router.get('/', (req, res, next) => {
-  Order.findAll()
+  Order.findAll({
+    include: [ LineItem ]
+  })
     .then( orders => res.send(orders))
     .catch(next)
 })
@@ -22,7 +24,8 @@ router.get('/:id', (req, res, next) => {
   Order.findAll({
     where: {
       userId: req.params.id
-    }
+    },
+    include: [ LineItem ]
   })
     .then( orders => res.send(orders))
     .catch(next)
