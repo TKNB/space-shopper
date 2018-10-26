@@ -1,14 +1,13 @@
 const conn = require('./conn');
-const Sequelize = conn.Sequelize;
 
 const User = conn.define('users', {
   id: {
-    type: Sequelize.UUID,
+    type: conn.Sequelize.UUID,
     defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
   },
   username: {
-    type: Sequelize.STRING,
+    type: conn.Sequelize.STRING,
     allowNull: false,
     validate: {
       isEmail: true,
@@ -16,7 +15,7 @@ const User = conn.define('users', {
     },
   },
   firstName: {
-    type: Sequelize.STRING,
+    type: conn.Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -24,7 +23,7 @@ const User = conn.define('users', {
     },
   },
   lastName: {
-    type: Sequelize.STRING,
+    type: conn.Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -32,7 +31,7 @@ const User = conn.define('users', {
     },
   },
   password: {
-    type: Sequelize.STRING,
+    type: conn.Sequelize.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
