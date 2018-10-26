@@ -39,7 +39,4 @@ const User = conn.define('users', {
   },
 });
 
-//Order.belongsTo(User)
-//User.hasMany(Order)
-
 module.exports = User;
