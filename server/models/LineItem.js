@@ -1,11 +1,15 @@
 const conn = require('./conn');
 
-const LineItem = '';
-
-const text = {
-  'a': 1,
-  'b': 2
-}
-
+const LineItem = conn.define('lineItem', {
+  id: {
+    type: conn.Sequelize.UUID,
+    defaultValue: conn.Sequelize.UUIDV4,
+    primaryKey: true
+  },
+  qty: {
+    type: conn.Sequelize.INT,
+    defaultValue: 1 
+  }
+});
 
 module.exports = LineItem;
