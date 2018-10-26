@@ -1,36 +1,33 @@
 const conn = require('./conn');
-//const LineItem = require('./LineItem');
 const Order = require('./Order');
+const LineItem = require('./LineItem');
 const Product = require('./Product');
 const User = require('./User');
 
 Order.belongsTo(User)
 User.hasMany(Order)
-
-// Order.hasMany(LineItem)
-// LineItem.belongsTo(Order)
-// LineItem.belongsTo(Product)
+Order.hasMany(LineItem)
+LineItem.belongsTo(Order)
+LineItem.belongsTo(Product)
+Product.hasMany(LineItem)
 
 const syncAndSeed = () => conn.sync({ force: true })
   .then(async () => {
     const [carlSagan, nicolausCopernicus, albertEinstein] = await
       Promise.all([
         User.create({
-          id: '26858798-85a0-41f5-a1e5-8148f7ed9904',
           username: 'CarlSagan@cosmos.net',
           firstName: 'Carl',
           lastName: 'Sagan',
           password: 'yuman',
         }),
         User.create({
-          id: 'f925c63e-04c1-4d9f-9888-ca9fe60d82f6',
           username: 'NicolausCopernicus@heliocentric.net',
           firstName: 'Nicolaus',
           lastName: 'Copernicus',
           password: 'flatEarth',
         }),
         User.create({
-          id: 'f930647d-d1d3-4c39-80eb-bbcf319b3e9d',
           username: 'AlbertEinstein@emc2.net',
           firstName: 'Albert',
           lastName: 'Einstein',
@@ -67,31 +64,26 @@ const syncAndSeed = () => conn.sync({ force: true })
       ])
 
     const order1 = await Order.create({
-      id: 'b7f123d2-718f-4756-9404-6108785200e5',
-      complete: false,
       userId: carlSagan.id,
     });
 
     const order2 = await Order.create({
-      id: '822992d7-3fac-435b-b500-fba6221a37e2',
-      complete: false,
       userId: carlSagan.id,
     });
 
     const order3 = await Order.create({
-      id: '30ee0eb2-7a65-4ccd-8dac-c0261cd9fd11',
       complete: true,
       userId: albertEinstein.id,
     });
 
-    // await Promise.all([
-    //   LineItem.create({ productId: comet.id, orderId: order1.id, qty: 3 }),
-    //   LineItem.create({ productId: blackHole.id, orderId: order2.id, qty: 2 }),
-    //   LineItem.create({ productId: sun.id, orderId: order3.id, qty: 1 }),
-    //   LineItem.create({ productId: comet.id, orderId: order3.id, qty: 5 }),
-    //   LineItem.create({ productId: comet.id, orderId: order1.id, qty: 8 }),
-    //   LineItem.create({ productId: sun.id, orderId: order3.id, qty: 4 }),
-    // ])
+    await Promise.all([
+      LineItem.create({ productId: comet.id, orderId: order1.id, qty: 3 }),
+      LineItem.create({ productId: blackHole.id, orderId: order2.id, qty: 2 }),
+      LineItem.create({ productId: sun.id, orderId: order3.id, qty: 1 }),
+      LineItem.create({ productId: comet.id, orderId: order3.id, qty: 5 }),
+      LineItem.create({ productId: comet.id, orderId: order1.id, qty: 8 }),
+      LineItem.create({ productId: sun.id, orderId: order3.id, qty: 4 }),
+    ])
 
   }).then(() => console.log('--> DB Seeded <--'))
 
