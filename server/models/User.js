@@ -1,6 +1,4 @@
 const conn = require('./conn');
-const Sequelize = require('sequelize');
-
 
 const User = conn.define('users', {
   id: {
@@ -13,7 +11,7 @@ const User = conn.define('users', {
     allowNull: false,
     validate: {
       isEmail: true,
-      notEmpty: true
+      notEmpty: true,
     },
   },
   firstName: {
