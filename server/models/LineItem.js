@@ -7,7 +7,7 @@ const LineItem = conn.define('lineItem', {
     primaryKey: true
   },
   qty: {
-    type: conn.Sequelize.INT,
+    type: conn.Sequelize.INTEGER,
     defaultValue: 1 
   }
 });
