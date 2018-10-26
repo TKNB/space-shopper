@@ -3,7 +3,7 @@ const conn = require('./conn');
 const User = conn.define('users', {
   id: {
     type: conn.Sequelize.UUID,
-    defaultValue: Sequelize.UUIDV4,
+    defaultValue: conn.Sequelize.UUIDV4,
     primaryKey: true,
   },
   username: {
