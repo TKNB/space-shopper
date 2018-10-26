@@ -1,11 +1,10 @@
 const express = require('express');
 const app = express();
 const logger = require('morgan');
-const bodyParser = require('body-parser');
 const path = require('path');
 
 app.use(logger('dev'));
-app.use(bodyParser.json());
+app.use(express.json());
 app.use('/api', require('./routes'));
 app.use(express.static(path.join(__dirname, '..', 'dist')));
 app.use(express.static(path.join(__dirname, '..', 'public')));
