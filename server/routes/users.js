@@ -12,7 +12,7 @@ router.use((req, res, next) => {
   }
   let id;
   try {
-    id = jwt.decode(token, 'Foo').id;
+    id = jwt.decode(token, process.env.JWT_SECRET || 'TKNB').id;
   } catch (ex) {
     return next({ status: 401 });
   }
@@ -35,7 +35,10 @@ router.post('/auth', (req, res, next) => {
       if (!user) {
         return next({ status: 401 });
       }
-      const token = jwt.encode({ id: user.id }, 'Foo');
+      const token = jwt.encode(
+        { id: user.id },
+        process.env.JWT_SECRET || 'TKNB'
+      );
       res.send({ token });
     })
     .catch(next);
