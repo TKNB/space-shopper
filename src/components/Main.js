@@ -1,27 +1,37 @@
-/* eslint-disable react/prefer-stateless-function */ // REMOVE ME EVENTUALLY
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom'
 
+import { loadProducts } from '../store/products';
+
 import Login from './Login';
+import Products from './Products';
 
 class Main extends Component {
-  render () {
+  componentDidMount() {
+    this.props.loadProducts();
+  }
+
+  render() {
     return (
-      <Router>
-          <Route path="/" component={Login} />
-      </Router>
+      <div>
+        <Products />
+
+        <Router>
+          <div>
+            <Route exact path="/" component={Login} />
+            <Route path="/products" component={Products} />
+          </div>
+        </Router>
+      </div>
     )
   }
 }
 
-const mapStateToProps = (state) => ({
-
-});
+const mapStateToProps = ({ products }) => ({ products });
 
 const mapDispatchToProps = (dispatch) => ({
-
+  loadProducts: () => dispatch(loadProducts()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
