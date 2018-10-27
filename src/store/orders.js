@@ -5,17 +5,44 @@ const initialState = {
 }
 
 // ACTION TYPES
+const SET_ORDERS = 'SET_ORDERS';
 
 
 // ACTION CREATORS
+const setOrders = (orders) => ({type: SET_ORDERS, orders});
 
 
 // THUNK CREATORS
+export const getOrders = () => {
+  return (dispatch) => {
+    axios.get('/api/orders')
+      .then(res => res.data)
+      .then(orders => dispatch(setOrders(orders)))
+  }
+}
 
+export const placeOrder = (orderId) => {
+  return (dispatch) => {
+    axios.put(`/api/orders/${orderId}`, {complete: true})
+      .then(() => dispatch(getOrders()))
+  }
+}
+
+export const updateLineItem = (lineItemId, data) => {
+  return (dispatch) => {
+    axios.put(`/api/orders/line_item/${lineItemId}`, data)
+    .then(() => dispatch(getOrders()))
+  }
+}
 
 // REDUCERS
 const ordersReducer = (orders = initialState.orders, action) => {
+  switch (action.type) {
+    case SET_ORDERS:
+      return action.orders
+    default:
       return orders
+  }
 }
 
 export default ordersReducer;
