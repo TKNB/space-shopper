@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
+import Login from './Login';
 import NavBar from './NavBar';
 import Signup from './Signup';
 import { exchangeTokenForAuth } from '../store/auth';
