@@ -17,8 +17,8 @@ const Cart = ({ order, auth }) => {
 }
 
 const mapStateToProps = (state) => ({
-  order: state.orders.filter(order => order.userId === state.auth.id && !order.completed), // needs to be changed to filter for auth's id
-  auth: state.auth // hardcoded to Carl Sagan
+  order: state.orders.filter(order => order.userId === state.auth.id && !order.completed),
+  auth: state.auth
 })
 
 export default connect(mapStateToProps)(Cart);
