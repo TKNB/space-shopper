@@ -1,28 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route } from 'react-router-dom';
-import Login from './Login';
-import NavBar from './NavBar';
-import Signup from './Signup';
+import { HashRouter as Router, Route } from 'react-router-dom'
+
 import { exchangeTokenForAuth } from '../store/auth';
 import { loadProducts } from '../store/products';
+import Login from './Login';
 import Products from './Products';
+import EditProduct from './EditProduct';
+import NavBar from './NavBar';
+import Signup from './Signup';
 
 class Main extends Component {
   componentDidMount() {
     this.props.init();
   }
+
   render() {
     return (
-      <Router>
-        <div>
-          <Route path="/" component={NavBar} />
-          <Route path="/login" component={Login} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/products" component={Products} />
-        </div>
-      </Router>
-    );
+      <div>
+        <Router>
+          <div>
+            <Route path="/" component={NavBar} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/products" component={Products} />
+            <Route path="/edit/product/:id" render={ ({match}) => <EditProduct id={match.params.id} /> } />
+          </div>
+        </Router>
+      </div>
+    )
   }
 }
 

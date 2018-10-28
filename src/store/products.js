@@ -56,6 +56,12 @@ export const deleteProduct = (product, history) => dispatch => {
     .then(() => history.push('/products'))
 };
 
+export const updateProduct = product => dispatch => {
+  axios.put(`/api/products/${product.id}`, product)
+    .then(res => res.data)
+    .then( product => dispatch(_updateProduct(product)))
+};
+
 // REDUCERS
 const productsReducer = (products = initialState.products, action) => {
   switch (action.type) {
@@ -63,6 +69,9 @@ const productsReducer = (products = initialState.products, action) => {
       return action.products;
     case PRODUCTS.DELETE:
       return products.filter(product => product.id !== action.product.id);
+    case PRODUCTS.UPDATE:
+      const _products = products.filter(product => product.id !== action.product.id);
+      return [..._products, action.product]
     default: return products;
   }
 }

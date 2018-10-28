@@ -29,8 +29,8 @@ router.delete('/:id', (req, res, next) => {
 // PUT updates to product by id
 router.put('/:id', (req, res, next) => {
   Product.findById(req.params.id)
-    .then(product => Object.assign(product, req.body).save())
-    .then(product => res.send(product))
+    .then( product => product.update(req.body))
+    .then( product => res.send(product))
     .catch(next)
 })
 
