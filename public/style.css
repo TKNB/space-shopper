@@ -1,9 +1,28 @@
-* {
-  color: dodgerblue;
-}
 body {
   background-image: url('milky-way.jpg');
 }
+
+* {
+  color: dodgerblue;
+  text-align: center;
+}
+
+.byline{
+  color: whitesmoke;
+  font-style: oblique;
+}
+
+.featured{
+  color: tomato;
+  font-size: 1.5em;
+}
+
+.card {
+  border: 1px double whitesmoke;
+  margin: 10px;
+  padding: 10px;
+}
+
 @media all and (min-width: 480px) {
   .Login {
     padding: 60px 0;
