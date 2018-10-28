@@ -1,23 +1,48 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CartItems from './CartItems';
 import Checkout from './Checkout';
 
-const Cart = ({ order, auth }) => {
-  // need to add defensive routing when cart empty
-  console.log(order);
-  return (
-    <div id="cart">
-      <CartItems order={order} />
-      <hr />
-      <Checkout auth={auth} order={order} />
-    </div>
-  )
+class Cart extends Component {
+  constructor ({ order, auth }) {
+    super();
+    this.state = {
+      order: [],
+      auth: []
+    }
+  }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.order !== this.props.order) {
+      this.setState({
+        order: this.props.order,
+        auth: this.props.auth
+      })
+    }
+  }
+
+  render () {
+    const { order, auth } = this.props;
+    if (order) {
+      return (
+        <div id="cart">
+          <CartItems order={order} />
+          <hr />
+          <Checkout auth={auth} order={order} />
+        </div>
+      )
+    }
+    else {
+      return (
+        <div id="cart">Your cart is as empty as a black hole!</div>
+      )
+    }
+  }
 }
 
 const mapStateToProps = (state) => ({
-  order: state.orders.filter(order => order.userId === state.auth.id && !order.completed),
+  order: state.orders.filter(order => order.userId === state.auth.id && !order.complete).pop(),
   auth: state.auth
 })
 
