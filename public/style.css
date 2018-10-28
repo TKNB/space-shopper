@@ -23,30 +23,6 @@ body {
   padding: 10px;
 }
 
-@media all and (min-width: 480px) {
-  .Login {
-    padding: 60px 0;
-  }
-
-  .Login form {
-    margin: 0 auto;
-    max-width: 320px;
-  }
-}
-body {
-  background-image: url('milky-way.jpg');
-}
-@media all and (min-width: 480px) {
-  .Login {
-    padding: 60px 0;
-  }
-
-  .Login form {
-    margin: 0 auto;
-    max-width: 320px;
-  }
-}
-
 #editForm {
   left: 0;
   right: 0;
