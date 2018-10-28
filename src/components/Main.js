@@ -4,11 +4,13 @@ import { HashRouter as Router, Route } from 'react-router-dom'
 
 import { exchangeTokenForAuth } from '../store/auth';
 import { loadProducts } from '../store/products';
+import { getOrders } from '../store/orders';
 import Login from './Login';
 import Products from './Products';
 import EditProduct from './EditProduct';
 import NavBar from './NavBar';
 import Signup from './Signup';
+import Cart from './Cart';
 
 class Main extends Component {
   componentDidMount() {
@@ -25,6 +27,7 @@ class Main extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/products" component={Products} />
             <Route path="/edit/product/:id" render={ ({match}) => <EditProduct id={match.params.id} /> } />
+            <Route path="/cart" component={Cart} />
           </div>
         </Router>
       </div>
@@ -42,6 +45,7 @@ const mapDispatchToProps = dispatch => {
     init: () => {
     dispatch(exchangeTokenForAuth());
     dispatch(loadProducts());
+    dispatch(getOrders());
     }
   };
 };

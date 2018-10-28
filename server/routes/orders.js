@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Order = require('../models/Order');
 const LineItem = require('../models/LineItem');
+const Product = require('../models/Product');
 
 //API
 //http://localhost:8888/api/orders
@@ -10,7 +11,7 @@ const LineItem = require('../models/LineItem');
 // Get all orders
 router.get('/', (req, res, next) => {
   Order.findAll({
-    include: [ LineItem ]
+    include: [{model: LineItem, include: Product}]
   })
     .then( orders => res.send(orders))
     .catch(next)
