@@ -1,3 +1,35 @@
 * {
   color: dodgerblue;
 }
+body {
+  background-image: url('milky-way.jpg');
+}
+@media all and (min-width: 480px) {
+  .Login {
+    padding: 60px 0;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}
+
+#editForm {
+  left: 0;
+  right: 0;
+  margin: 10px auto;
+  width: 85%;
+  max-width: 1000px;
+  text-align: center;
+}
+
+#editForm h1 {
+  margin-top: 80px;
+}
+
+#editForm img {
+  width: 80%;
+  max-width: 250px;
+  border: 1px solid;
+}
