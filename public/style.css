@@ -7,6 +7,11 @@ body {
   text-align: center;
 }
 
+.Login form {
+  margin: 0 auto;
+  max-width: 320px;
+}
+
 .byline{
   color: whitesmoke;
   font-style: oblique;
