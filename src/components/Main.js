@@ -34,9 +34,9 @@ const mapDispatchToProps = dispatch => {
   // adding token exchange to init(), to keep user logged in after hard refresh
   return {
     init: () => {
-    dispatch(exchangeTokenForAuth()),
-    dispatch(loadProducts()),
-    })
+    dispatch(exchangeTokenForAuth());
+    dispatch(loadProducts());
+    }
   };
 };
 
