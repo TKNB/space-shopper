@@ -68,6 +68,7 @@ const syncAndSeed = () => conn.sync({ force: true })
     });
 
     const order2 = await Order.create({
+      complete: true,
       userId: carlSagan.id,
     });
 
