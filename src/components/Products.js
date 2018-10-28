@@ -13,4 +13,5 @@ const Products = ({ products }) => {
 };
 
 const mapStateToProps = ({ products }) => ({ products });
+
 export default connect(mapStateToProps)(Products);

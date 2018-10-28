@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom'
 
+import { exchangeTokenForAuth } from '../store/auth';
 import { loadProducts } from '../store/products';
-
 import Login from './Login';
 import Products from './Products';
 import EditProduct from './EditProduct';
+import NavBar from './NavBar';
+import Signup from './Signup';
 
 class Main extends Component {
   componentDidMount() {
-    this.props.loadProducts();
+    this.props.init();
   }
 
   render() {
@@ -18,7 +20,9 @@ class Main extends Component {
       <div>
         <Router>
           <div>
-            <Route exact path="/" component={Login} />
+            <Route path="/" component={NavBar} />
+            <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
             <Route path="/products" component={Products} />
             <Route path="/edit/product/:id" render={ ({match}) => <EditProduct id={match.params.id} /> } />
           </div>
@@ -28,10 +32,21 @@ class Main extends Component {
   }
 }
 
-const mapStateToProps = ({ products }) => ({ products });
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
 
-const mapDispatchToProps = (dispatch) => ({
-  loadProducts: () => dispatch(loadProducts()),
-})
+const mapDispatchToProps = dispatch => {
+  // adding token exchange to init(), to keep user logged in after hard refresh
+  return {
+    init: () => {
+    dispatch(exchangeTokenForAuth());
+    dispatch(loadProducts());
+    }
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Main);

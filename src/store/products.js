@@ -69,9 +69,9 @@ const productsReducer = (products = initialState.products, action) => {
       return action.products;
     case PRODUCTS.DELETE:
       return products.filter(product => product.id !== action.product.id);
-      case PRODUCTS.UPDATE:
-        const _products = products.filter(product => product.id !== action.product.id);
-        return [..._products, action.product]
+    case PRODUCTS.UPDATE:
+      const _products = products.filter(product => product.id !== action.product.id);
+      return [..._products, action.product]
     default: return products;
   }
 }

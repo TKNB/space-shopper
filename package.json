@@ -38,7 +38,7 @@
     "postinstall": "npm run webpack",
     "start": "node server/index.js",
     "webpack": "./node_modules/webpack/bin/webpack.js",
-    "start:dev": "npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/space-shopper nodemon server/index.js --ignore src/ --ignore dist",
+    "start:dev": "JWT_SECRET=foo npm run webpack -- --watch --mode=development & DATABASE_URL=postgres://localhost/space-shopper nodemon server/index.js --ignore src/ --ignore dist",
     "test:dev": "JWT_SECRET=foo DATABASE_URL=postgres://localhost/space-shopper-test nodemon ./node_modules/mocha/bin/mocha server/*test.js"
   },
   "repository": {
