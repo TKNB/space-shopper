@@ -30,6 +30,13 @@ class EditProduct extends Component {
     e.preventDefault()
     this.props.updateProduct( this.state.product )
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.product !== prevProps.product) {
+      this.setState({
+        product: this.props.product
+      })
+    }
+  }
   render() {
     const { handleChange, submitChange } = this
     const name = this.state.product.name ? this.state.product.name : ''
@@ -65,6 +72,7 @@ class EditProduct extends Component {
 const mapStateToProps = ({ products }, ownProps) => {
   const _product = products.filter( product => product.id === ownProps.id)
   if(_product.length < 1) {
+    console.log(products)
     return ({
       product: {
         id: 0,
@@ -75,6 +83,7 @@ const mapStateToProps = ({ products }, ownProps) => {
       }
     })
   }
+  console.log('Found product.')
   return ({
     product: products.filter( product => product.id === ownProps.id)[0]
   })
