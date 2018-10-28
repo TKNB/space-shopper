@@ -1,10 +1,10 @@
+body {
+  background-image: url('milky-way.jpg');
+}
+
 * {
   color: dodgerblue;
   text-align: center;
-}
-
-body {
-  background-color: black;
 }
 
 .byline{
@@ -22,9 +22,7 @@ body {
   margin: 10px;
   padding: 10px;
 }
-body {
-  background-image: url('milky-way.jpg');
-}
+
 @media all and (min-width: 480px) {
   .Login {
     padding: 60px 0;
