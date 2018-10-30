@@ -27,7 +27,12 @@ const Product = conn.define('product', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-  }
+  },
+  featured: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+  //userId:
 });
 
 module.exports = Product;
