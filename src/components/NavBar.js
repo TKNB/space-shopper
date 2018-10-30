@@ -37,6 +37,11 @@ const NavBar = ({ auth, isLoggedIn, logout }) => {
               Signup
             </NavItem>
           )}
+          {isLoggedIn ? null : (
+            <NavItem eventKey={4} href="#add_product">
+              Add a New Product
+            </NavItem>
+          )}
           <NavItem eventKey={2} href="#">
             Cart
           </NavItem>

@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
 
 // DELETE product by id
 router.delete('/:id', (req, res, next) => {
-  Product.findById(req.params.id)
+  Product.findByPrimary(req.params.id)
     .then(product => product.destroy())
     .then(() => res.sendStatus(202))
     .catch(next)
