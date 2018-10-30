@@ -11,6 +11,7 @@ import EditProduct from './EditProduct';
 import NavBar from './NavBar';
 import Signup from './Signup';
 import Cart from './Cart';
+import Confirmation from './Confirmation';
 
 class Main extends Component {
   componentDidMount() {
@@ -29,6 +30,7 @@ class Main extends Component {
             <Route path="/products" component={Products} />
             <Route path="/edit/product/:id" render={ ({match}) => <EditProduct id={match.params.id} /> } />
             <Route path="/cart" component={Cart} />
+            <Route path="/confirmation/:orderId" render={(props) => <Confirmation props={props} />} />
           </div>
         </Router>
       </div>

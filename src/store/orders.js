@@ -21,10 +21,11 @@ export const getOrders = () => {
   }
 }
 
-export const placeOrder = (orderId) => {
+export const placeOrder = (orderId, history) => {
   return (dispatch) => {
     axios.put(`/api/orders/${orderId}`, {complete: true})
       .then(() => dispatch(getOrders()))
+      .then(() => history.push(`/confirmation/${orderId}`))
   }
 }
 

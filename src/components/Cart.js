@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom';
 
 import CartItems from './CartItems';
 import Checkout from './Checkout';
@@ -29,7 +30,7 @@ class Cart extends Component {
         <div id="cart">
           <CartItems order={order} />
           <hr />
-          <Checkout auth={auth} order={order} />
+          <Route path="/cart" render={ (props) => <Checkout auth={auth} order={order} props={props} />} />
         </div>
       )
     }
