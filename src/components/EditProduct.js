@@ -96,6 +96,7 @@ const mapStateToProps = ({ products }, ownProps) => {
     product: products.filter( product => product.id === ownProps.id).pop()
   })
 }
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
