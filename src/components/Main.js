@@ -45,7 +45,7 @@ class Main extends Component {
               const productDetail = featuredProducts.find(product => product.id === match.params.id);
               return <ProductDetail product={productDetail} />
             }} />
-            <Route path="/cart" component={Cart} />
+            <Route path="/cart" render={ ({match, history}) => <Cart history={history} /> } />
             <Route path="/confirmation/:orderId" render={(props) => <Confirmation props={props} />} />
           </div>
         </Router>

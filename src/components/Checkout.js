@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => ({
   },
   order: ownProps.order,
   auth: ownProps.auth,
-  history: ownProps.props.history,
+  history: ownProps.history,
 })
 
 const mapDispatchToProps = (dispatch) => ({
