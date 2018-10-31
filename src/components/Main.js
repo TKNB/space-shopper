@@ -14,6 +14,7 @@ import Products from './Products';
 import ProductDetail from './ProductDetail';
 import EditProduct from './EditProduct';
 import Cart from './Cart';
+import Confirmation from './Confirmation';
 import AddProduct from './AddProduct';
 
 class Main extends Component {
@@ -41,6 +42,7 @@ class Main extends Component {
               return <ProductDetail product={productDetail} />
             }} />
             <Route path="/cart" component={Cart} />
+            <Route path="/confirmation/:orderId" render={(props) => <Confirmation props={props} />} />
           </div>
         </Router>
       </div>
