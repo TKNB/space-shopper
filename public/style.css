@@ -3,51 +3,92 @@ body {
 }
 
 @media all and (min-width: 480px) {
-  .Login {
-  padding: 60px 0;
-}
+    .Login {
+    padding: 60px 0;
+  }
 
-* {
-  color: dodgerblue;
-  text-align: center;
-}
+  * {
+    color: whitesmoke;
+    text-align: center;
+  }
 
-.Login form {
-  margin: 0 auto;
-  max-width: 320px;
-}
+  hr {
+    height: 5px;
+    margin: 20px;
+    background-color: greenyellow;
+    border: 0 none;
+  }
 
-.byline{
-  color: whitesmoke;
-  font-style: oblique;
-}
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
 
-.featured{
-  color: tomato;
-  font-size: 1.5em;
-}
+  .byline{
+    color: whitesmoke;
+    font-style: oblique;
+  }
 
-.card {
-  border: 1px double whitesmoke;
-  margin: 10px;
-  padding: 10px;
-}
+  .featured{
+    color: tomato;
+    font-size: 2em;
+  }
 
-#editForm {
-  left: 0;
-  right: 0;
-  margin: 10px auto;
-  width: 85%;
-  max-width: 1000px;
-  text-align: center;
-}
+  .subtitle{
+    font-size: 2em;
+  }
 
-#editForm h1 {
-  margin-top: 80px;
-}
+  .flexContainer{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    align-items: center;
+  }
 
-#editForm img {
-  width: 80%;
-  max-width: 250px;
-  border: 1px solid;
+  .cardTitle {
+    font-family: 'Londrina Outline', cursive;
+    font-size: 3em;
+  }
+
+  .card {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+    background-color: rgba(255,255,255,0);
+    align-content: center;
+  }
+
+  .detail{
+    width: 300px;
+    height: 300px;
+  }
+
+  .detailCard{
+    background-color: rgba(0,0,0,.5);
+    height: auto;
+    width: auto;
+  }
+
+  #editForm {
+    left: 0;
+    right: 0;
+    margin: 10px auto;
+    width: 85%;
+    max-width: 1000px;
+    text-align: center;
+  }
+
+  #editForm h1 {
+    margin-top: 80px;
+  }
+
+  #editForm img {
+    width: 80%;
+    max-width: 250px;
+    border: 1px solid;
+  }
 }

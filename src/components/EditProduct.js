@@ -3,9 +3,8 @@ import { connect } from 'react-redux'
 import { updateProduct } from '../store/products'
 import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
-
 class EditProduct extends Component {
-  constructor({product}) {
+  constructor({ product }) {
     super()
     this.state = {
       product: {
@@ -21,14 +20,14 @@ class EditProduct extends Component {
   }
   handleChange(e) {
     let product = this.state.product
-    product[e.target.name] = e.target.value*1 ? e.target.value*1 : e.target.value
+    product[e.target.name] = e.target.value * 1 ? e.target.value * 1 : e.target.value
     this.setState({
       product
     })
   }
   submitChange(e) {
     e.preventDefault()
-    this.props.updateProduct( this.state.product )
+    this.props.updateProduct(this.state.product)
   }
   componentDidUpdate(prevProps) {
     if (this.props.product !== prevProps.product) {
@@ -70,8 +69,8 @@ class EditProduct extends Component {
 }
 
 const mapStateToProps = ({ products }, ownProps) => {
-  const _product = products.filter( product => product.id === ownProps.id)
-  if(_product.length < 1) {
+  const _product = products.filter(product => product.id === ownProps.id)
+  if (_product.length < 1) {
     console.log(products)
     return ({
       product: {
@@ -85,7 +84,7 @@ const mapStateToProps = ({ products }, ownProps) => {
   }
   console.log('Found product.')
   return ({
-    product: products.filter( product => product.id === ownProps.id)[0]
+    product: products.filter(product => product.id === ownProps.id)[0]
   })
 }
 

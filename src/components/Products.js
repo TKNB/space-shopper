@@ -1,13 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Product from './Product';
+import ProductDetail from './ProductDetail';
 
 const Products = ({ products }) => {
   return (
     <div>
       <h2>Products</h2>
-      <p className='byline'>Each finely crafted in the crucible of the Milky Way.</p>
-      {products.map(product => <Product key={product.id} product={product} />)}
+      {products.map(product => <ProductDetail key={product.id} product={product} />)}
     </div>
   )
 };
