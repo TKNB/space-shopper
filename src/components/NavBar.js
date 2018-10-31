@@ -25,14 +25,18 @@ const NavBar = ({ auth, isLoggedIn, logout }) => {
         <Nav pullRight>
           {isLoggedIn ? (
             <NavItem eventKey={1} href="#" onClick={logout}>
-              Logout {auth.username}
+              Logout
             </NavItem>
           ) : (
             <NavItem eventKey={1} href="#login">
               Login
             </NavItem>
           )}
-          {isLoggedIn ? null : (
+          {isLoggedIn ? (
+            <NavItem eventKey={1} href="#account">
+              Account Details: {auth.username}
+            </NavItem>
+          ) : (
             <NavItem eventKey={2} href="#signup">
               Signup
             </NavItem>
@@ -42,7 +46,7 @@ const NavBar = ({ auth, isLoggedIn, logout }) => {
               Add a New Product
             </NavItem>
           )}
-          <NavItem eventKey={2} href="#">
+          <NavItem eventKey={2} href="#cart">
             Cart
           </NavItem>
         </Nav>

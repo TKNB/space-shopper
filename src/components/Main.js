@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { HashRouter as Router, Route } from 'react-router-dom'
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 import { loadProducts } from '../store/products';
 import { getOrders } from '../store/orders';
@@ -14,8 +14,11 @@ import Products from './Products';
 import ProductDetail from './ProductDetail';
 import EditProduct from './EditProduct';
 import Cart from './Cart';
+
+import Account from './Account';
 import Confirmation from './Confirmation';
 import AddProduct from './AddProduct';
+
 
 class Main extends Component {
   componentDidMount() { this.props.init() }
@@ -30,6 +33,7 @@ class Main extends Component {
             <Route exact path="/" component={() => <Home myProducts={myProducts} featuredProducts={featuredProducts} />} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/account" component={Account} />
             <Route path="/products" component={Products} />
             <Route path="/add_product" component={AddProduct} />
             <Route path="/edit/product/:id" render={ ({match, history}) => <EditProduct history={history} id={match.params.id} /> } />
@@ -46,7 +50,7 @@ class Main extends Component {
           </div>
         </Router>
       </div>
-    )
+    );
   }
 }
 
