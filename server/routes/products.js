@@ -20,7 +20,7 @@ router.post('/', (req, res, next) => {
 
 // DELETE product by id
 router.delete('/:id', (req, res, next) => {
-  Product.findById(req.params.id)
+  Product.findByPrimary(req.params.id)
     .then(product => product.destroy())
     .then(() => res.sendStatus(202))
     .catch(next)
@@ -29,8 +29,8 @@ router.delete('/:id', (req, res, next) => {
 // PUT updates to product by id
 router.put('/:id', (req, res, next) => {
   Product.findById(req.params.id)
-    .then( product => product.update(req.body))
-    .then( product => res.send(product))
+    .then(product => product.update(req.body))
+    .then(product => res.send(product))
     .catch(next)
 })
 
