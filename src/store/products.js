@@ -29,11 +29,6 @@ const _loadProducts = products => ({
 const _deleteProduct = product => ({
   type: PRODUCTS.DELETE,
   product,
-})
-
-const _addProduct = product => ({
-  type: PRODUCTS.ADD,
-  product,
 });
 
 const _updateProduct = product => ({
@@ -60,6 +55,13 @@ export const updateProduct = product => dispatch => {
   axios.put(`/api/products/${product.id}`, product)
     .then(res => res.data)
     .then( product => dispatch(_updateProduct(product)))
+};
+
+export const addProduct = (product, history) => dispatch => {
+  axios.post(`/api/products/`, product)
+    .then(res => res.data)
+    .then( product => dispatch(_updateProduct(product)))
+    .then(() => history.push('/products'))
 };
 
 // REDUCERS

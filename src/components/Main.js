@@ -14,6 +14,7 @@ import Products from './Products';
 import ProductDetail from './ProductDetail';
 import EditProduct from './EditProduct';
 import Cart from './Cart';
+import AddProduct from './AddProduct';
 
 class Main extends Component {
   componentDidMount() { this.props.init() }
@@ -29,6 +30,8 @@ class Main extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/products" component={Products} />
+            <Route path="/add_product" component={AddProduct} />
+            <Route path="/edit/product/:id" render={ ({match, history}) => <EditProduct history={history} id={match.params.id} /> } />
             <Route path="/product/:id" render={({ match }) => {
               const productDetail = myProducts.find(product => product.id === match.params.id);
               return <ProductDetail product={productDetail} />
@@ -37,7 +40,6 @@ class Main extends Component {
               const productDetail = featuredProducts.find(product => product.id === match.params.id);
               return <ProductDetail product={productDetail} />
             }} />
-            <Route path="/edit/product/:id" render={({ match }) => <EditProduct id={match.params.id} />} />
             <Route path="/cart" component={Cart} />
           </div>
         </Router>
