@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { updateProduct } from '../store/products'
+import { updateProduct, deleteProduct } from '../store/products'
 import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
 
-
 class EditProduct extends Component {
-  constructor({product}) {
+  constructor({ product }) {
     super()
     this.state = {
       product: {
@@ -18,17 +17,22 @@ class EditProduct extends Component {
     }
     this.handleChange = this.handleChange.bind(this)
     this.submitChange = this.submitChange.bind(this)
+    this._deleteProduct = this._deleteProduct.bind(this)
   }
   handleChange(e) {
     let product = this.state.product
-    product[e.target.name] = e.target.value*1 ? e.target.value*1 : e.target.value
+    product[e.target.name] = e.target.value * 1 ? e.target.value * 1 : e.target.value
     this.setState({
       product
     })
   }
   submitChange(e) {
     e.preventDefault()
-    this.props.updateProduct( this.state.product )
+    this.props.updateProduct(this.state.product)
+  }
+  _deleteProduct(e) {
+    e.preventDefault()
+    this.props.deleteProduct( this.state.product, this.props.history )
   }
   componentDidUpdate(prevProps) {
     if (this.props.product !== prevProps.product) {
@@ -38,7 +42,8 @@ class EditProduct extends Component {
     }
   }
   render() {
-    const { handleChange, submitChange } = this
+    const { handleChange, submitChange, _deleteProduct } = this
+    const id = this.state.product.id ? this.state.product.id : ''
     const name = this.state.product.name ? this.state.product.name : ''
     const description = this.state.product.description ? this.state.product.description : ''
     const price = this.state.product.price ? this.state.product.price : ''
@@ -64,6 +69,9 @@ class EditProduct extends Component {
             UPDATE PRODUCT
           </Button>
         </form>
+        <Button block bsSize="large" type="submit"  onClick={_deleteProduct}>
+          DELETE PRODUCT
+        </Button>
       </div>
     );
   }
@@ -72,7 +80,8 @@ class EditProduct extends Component {
 const mapStateToProps = ({ products }, ownProps) => {
   const _product = products.filter( product => product.id === ownProps.id)
   if(_product.length < 1) {
-    console.log(products)
+  const _product = products.filter(product => product.id === ownProps.id)
+  if (_product.length < 1) {
     return ({
       product: {
         id: 0,
@@ -83,15 +92,16 @@ const mapStateToProps = ({ products }, ownProps) => {
       }
     })
   }
-  console.log('Found product.')
   return ({
-    product: products.filter( product => product.id === ownProps.id)[0]
+    product: products.filter( product => product.id === ownProps.id).pop()
   })
+}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateProduct: (product) => dispatch(updateProduct(product))
+    updateProduct: (product) => dispatch(updateProduct(product)),
+    deleteProduct: (id, history) => dispatch(deleteProduct(id, history))
   }
 }
 

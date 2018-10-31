@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { placeOrder } from '../store/orders';
 
-const Checkout = ({ order, orderSummary, auth, placeOrder }) => {
+const Checkout = ({ order, orderSummary, auth, history, placeOrder }) => {
   const { subtotal, discount, tax } = orderSummary; // orderSummary generated in mapStateToProps
   return (
     <div id="checkout">
@@ -13,7 +13,7 @@ const Checkout = ({ order, orderSummary, auth, placeOrder }) => {
       <p>Total: {(subtotal - discount + tax) / 100}</p>
       <hr />
       <p>Payment User: {auth.firstName} {auth.lastName}</p>
-      <button type="button" onClick={() => placeOrder(order.id)}> Place order </button>
+      <button type="button" onClick={() => placeOrder(order.id, history)}> Place order </button>
     </div>
   )
 }
@@ -27,11 +27,12 @@ const mapStateToProps = (state, ownProps) => ({
     discount: 0,
   },
   order: ownProps.order,
-  auth: ownProps.auth
+  auth: ownProps.auth,
+  history: ownProps.props.history,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  placeOrder: (orderId) => dispatch(placeOrder(orderId))
+  placeOrder: (orderId, history) => dispatch(placeOrder(orderId, history))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
