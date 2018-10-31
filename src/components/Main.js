@@ -36,7 +36,7 @@ class Main extends Component {
             <Route path="/account" component={Account} />
             <Route path="/products" component={Products} />
             <Route path="/add_product" component={AddProduct} />
-            <Route path="/edit/product/:id" render={ ({match, history}) => <EditProduct history={history} id={match.params.id} /> } />
+            <Route path="/edit/product/:id" render={({ match, history }) => <EditProduct history={history} id={match.params.id} />} />
             <Route path="/product/:id" render={({ match }) => {
               const productDetail = myProducts.find(product => product.id === match.params.id);
               return <ProductDetail product={productDetail} />
@@ -45,7 +45,7 @@ class Main extends Component {
               const productDetail = featuredProducts.find(product => product.id === match.params.id);
               return <ProductDetail product={productDetail} />
             }} />
-            <Route path="/cart" render={ ({match, history}) => <Cart history={history} /> } />
+            <Route path="/cart" render={({ match, history }) => <Cart history={history} />} />
             <Route path="/confirmation/:orderId" render={(props) => <Confirmation props={props} />} />
           </div>
         </Router>
@@ -56,8 +56,7 @@ class Main extends Component {
 
 const mapStateToProps = ({ products, auth }) => {
   const featuredProducts = products.filter(product => product.featured)
-  //temporary hardcoding below until we get users
-  const myProducts = products.filter(product => product.userId === 'c211e173-5346-4044-a2a3-9109460c6d47')
+  const myProducts = products.filter(product => product.userId === auth.id)
   return {
     auth,
     myProducts,

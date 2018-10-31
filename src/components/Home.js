@@ -62,9 +62,10 @@ class Home extends Component {
   }
 };
 
-const mapStateToProps = ({ orders }) => {
-  const cart = orders.find(order => !order.complete);
+const mapStateToProps = ({ auth, orders }) => {
+  const cart = orders.find(order => !order.complete); //&& order.id === auth.id -- cannot implement until we update the routes w/users
   return {
+    auth,
     cart,
   }
 }
