@@ -41,7 +41,7 @@ const NavBar = ({ auth, isLoggedIn, logout }) => {
               Signup
             </NavItem>
           )}
-          <NavItem eventKey={2} href="#">
+          <NavItem eventKey={2} href="#cart">
             Cart
           </NavItem>
         </Nav>
