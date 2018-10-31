@@ -24,13 +24,13 @@ class Cart extends Component {
   }
 
   render () {
-    const { order, auth } = this.props;
+    const { order, auth, history } = this.props;
     if (order) {
       return (
         <div id="cart">
           <CartItems order={order} />
           <hr />
-          <Route path="/cart" render={ (props) => <Checkout auth={auth} order={order} props={props} />} />
+          <Checkout auth={auth} order={order} history={history} />
         </div>
       )
     }
