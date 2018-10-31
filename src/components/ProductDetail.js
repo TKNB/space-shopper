@@ -46,15 +46,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
-
-//DELETE COMPONENTS BELOW TO BE ADDED TO EDIT PAGE
-// import { deleteProduct } from '../store/products';
-
-// {/* <Button onClick={() => {
-//             if (confirm('Send into oblivion?')) { deleteProduct(product) }
-//           }}>Delete
-//           </Button> */}
-
-// const mapDispatchToProps = (dispatch, { history }) => ({
-//   //deleteProduct: product => dispatch(deleteProduct(product, history)),
-// })
