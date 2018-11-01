@@ -82,7 +82,7 @@ router.put('/line_item/:id', (req, res, next) => {
     .catch(next)
 })
 
-// Delete an order (this may not be necessary)
+// Delete a line item
 router.delete('/line_item/:id', (req, res, next) => {
   LineItem.findById(req.params.id)
     .then( lineItem => lineItem.destroy())

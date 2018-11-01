@@ -31,8 +31,14 @@ export const placeOrder = (orderId, history) => {
 
 export const updateLineItem = (lineItemId, data) => {
   return (dispatch) => {
-    axios.put(`/api/orders/line_item/${lineItemId}`, data)
-      .then(() => dispatch(getOrders()))
+    if (data.qty === 0) {
+      axios.delete(`/api/orders/line_item/${lineItemId}`)
+        .then(() => dispatch(getOrders()))
+    }
+    else {
+      axios.put(`/api/orders/line_item/${lineItemId}`, data)
+        .then(() => dispatch(getOrders()))
+    }
   }
 }
 
