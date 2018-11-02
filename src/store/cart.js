@@ -73,6 +73,6 @@ export const addToCart = ( product, quantity, history ) => {
 };
 
 // ACTION CREATORS
-const _getCart = (cart) => ({ type: GET_CART, cart });
+export const _getCart = (cart) => ({ type: GET_CART, cart });
 
 export default cartReducer;

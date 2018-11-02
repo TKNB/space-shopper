@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { _getCart } from './cart'
 
 const initialState = {
   orders: []
@@ -26,6 +27,7 @@ export const placeOrder = (orderId, history) => {
     axios.put(`/api/orders/${orderId}`, { complete: true })
       .then(() => dispatch(getOrders()))
       .then(() => history.push(`/confirmation/${orderId}`))
+      .then(() => dispatch(_getCart({})))
   }
 }
 

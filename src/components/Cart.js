@@ -36,7 +36,7 @@ class Cart extends Component {
             </ul>
           </div>
           <hr />
-          {/* <Checkout auth={auth} history={history} /> */}
+          <Checkout auth={auth} order={cart} history={history} />
         </div>
       )
     }

@@ -2,20 +2,27 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { placeOrder } from '../store/orders';
+import cartReducer from '../store/cart';
 
 const Checkout = ({ order, orderSummary, auth, history, placeOrder }) => {
   const { subtotal, discount, tax } = orderSummary; // orderSummary generated in mapStateToProps
-  return (
-    <div id="checkout">
-      <p>Subtotal: {subtotal / 100}</p>
-      <p>Discount: {discount / 100}</p>
-      <p>Tax: {tax / 100}</p>
-      <p>Total: {(subtotal - discount + tax) / 100}</p>
-      <hr />
-      <p>Payment User: {auth.firstName} {auth.lastName}</p>
-      <button type="button" onClick={() => placeOrder(order.id, history)}> Place order </button>
-    </div>
-  )
+  if(order.id) {
+    return (
+      <div id="checkout">
+        <p>Subtotal: {subtotal / 100}</p>
+        <p>Discount: {discount / 100}</p>
+        <p>Tax: {tax / 100}</p>
+        <p>Total: {(subtotal - discount + tax) / 100}</p>
+        <hr />
+        <p>Payment User: {auth.firstName} {auth.lastName}</p>
+        <button type="button" onClick={() => placeOrder(order.id, history)}> Place order </button>
+      </div>
+    )
+  } else {
+    return (
+      <div></div>
+    )
+  }
 }
 
 const mapStateToProps = (state, ownProps) => ({
