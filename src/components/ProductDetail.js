@@ -8,7 +8,7 @@ import {
 
 import { addToCart } from '../store/orders';
 
-const ProductDetail = ({ product, cart, addToCart }) => {
+const ProductDetail = ({ product, cart, addToCart, isLoggedIn }) => {
   if (!product) return null;
   return (
     <div>
@@ -25,6 +25,12 @@ const ProductDetail = ({ product, cart, addToCart }) => {
             <Link to={'/cart'} replace>
               <Button onClick={() => addToCart(cart, product)}>Add to Cart</Button>
             </Link>
+            <Link to={'/cart'} replace></Link>
+            {isLoggedIn === product.userId ? null : (
+              <Link to={`/edit/product/${product.id}`}>
+                <Button>Edit Product</Button>
+              </Link>
+            )}
           </CardBody>
           <CardImg className='card detail' src={product.imageUrl} alt={`${product.name} image`} />
         </Card>
@@ -33,10 +39,11 @@ const ProductDetail = ({ product, cart, addToCart }) => {
   )
 }
 
-const mapStateToProps = ({ orders }) => {
+const mapStateToProps = ({ orders, auth }) => {
   const cart = orders.find(order => !order.complete);
   //find product owner
   return {
+    isLoggedIn: auth.id,
     cart,
   }
 }

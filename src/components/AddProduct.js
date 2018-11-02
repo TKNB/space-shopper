@@ -14,7 +14,8 @@ class AddProduct extends Component {
         price: 0,
         // Static image URL for now.  Will add AWS functionality later
         imageUrl: 'https://i5.walmartimages.com/asr/cb205672-887b-4a98-a8e9-58043efe7740_1.5a29df2e9cacc80b5ef85eeefe7564fb.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF'
-      }
+      },
+      warning: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.submitChange = this.submitChange.bind(this)
@@ -28,7 +29,13 @@ class AddProduct extends Component {
   }
   submitChange(e) {
     e.preventDefault()
-    this.props.addProduct( this.state.product, this.props.history )
+    if(isNaN(this.state.product.price)) {
+      this.setState({
+        warning: true
+      })
+    } else {
+      this.props.addProduct( this.state.product, this.props.history )
+    }
   }
   render() {
     const { handleChange, submitChange } = this
@@ -56,6 +63,10 @@ class AddProduct extends Component {
           <Button block bsSize="large" type="submit" >
             ADD PRODUCT
           </Button>
+          {warning ? 
+          <Alert bsStyle="danger">
+            <strong>Error!</strong> Please make sure price is a number.
+          </Alert> : null }
         </form>
       </div>
     );
