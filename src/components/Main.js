@@ -14,14 +14,15 @@ import Products from './Products';
 import ProductDetail from './ProductDetail';
 import EditProduct from './EditProduct';
 import Cart from './Cart';
-
+import MyOrders from './MyOrders';
 import Account from './Account';
 import Confirmation from './Confirmation';
 import AddProduct from './AddProduct';
 
-
 class Main extends Component {
-  componentDidMount() { this.props.init() }
+  componentDidMount() {
+    this.props.init();
+  }
 
   render() {
     const { myProducts, featuredProducts } = this.props;
@@ -30,23 +31,54 @@ class Main extends Component {
         <Router>
           <div>
             <Route component={NavBar} />
-            <Route exact path="/" component={() => <Home myProducts={myProducts} featuredProducts={featuredProducts} />} />
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <Home
+                  myProducts={myProducts}
+                  featuredProducts={featuredProducts}
+                />
+              )}
+            />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/account" component={Account} />
+            <Route path="/my_orders" component={MyOrders} />
             <Route path="/products" component={Products} />
             <Route path="/add_product" component={AddProduct} />
-            <Route path="/edit/product/:id" render={ ({match, history}) => <EditProduct history={history} id={match.params.id} /> } />
-            <Route path="/product/:id" render={({ match }) => {
-              const productDetail = myProducts.find(product => product.id === match.params.id);
-              return <ProductDetail product={productDetail} />
-            }} />
-            <Route path="/featured/product/:id" render={({ match }) => {
-              const productDetail = featuredProducts.find(product => product.id === match.params.id);
-              return <ProductDetail product={productDetail} />
-            }} />
-            <Route path="/cart" render={ ({match, history}) => <Cart history={history} /> } />
-            <Route path="/confirmation/:orderId" render={(props) => <Confirmation props={props} />} />
+            <Route
+              path="/edit/product/:id"
+              render={({ match, history }) => (
+                <EditProduct history={history} id={match.params.id} />
+              )}
+            />
+            <Route
+              path="/product/:id"
+              render={({ match }) => {
+                const productDetail = myProducts.find(
+                  product => product.id === match.params.id
+                );
+                return <ProductDetail product={productDetail} />;
+              }}
+            />
+            <Route
+              path="/featured/product/:id"
+              render={({ match }) => {
+                const productDetail = featuredProducts.find(
+                  product => product.id === match.params.id
+                );
+                return <ProductDetail product={productDetail} />;
+              }}
+            />
+            <Route
+              path="/cart"
+              render={({ match, history }) => <Cart history={history} />}
+            />
+            <Route
+              path="/confirmation/:orderId"
+              render={props => <Confirmation props={props} />}
+            />
           </div>
         </Router>
       </div>
@@ -55,14 +87,16 @@ class Main extends Component {
 }
 
 const mapStateToProps = ({ products, auth }) => {
-  const featuredProducts = products.filter(product => product.featured)
+  const featuredProducts = products.filter(product => product.featured);
   //temporary hardcoding below until we get users
-  const myProducts = products.filter(product => product.userId === 'c211e173-5346-4044-a2a3-9109460c6d47')
+  const myProducts = products.filter(
+    product => product.userId === 'c211e173-5346-4044-a2a3-9109460c6d47'
+  );
   return {
     auth,
     myProducts,
     featuredProducts,
-  }
+  };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -72,7 +106,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(exchangeTokenForAuth());
       dispatch(loadProducts());
       dispatch(getOrders());
-    }
+    },
   };
 };
 

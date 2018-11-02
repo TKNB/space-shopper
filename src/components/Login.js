@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../store/auth';
 import { Redirect } from 'react-router-dom';
-import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormFeedback,
+} from 'reactstrap';
 
 class Login extends Component {
   constructor() {
@@ -37,10 +44,10 @@ class Login extends Component {
     }
     return (
       <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <Label>Email</Label>
+            <Input
               autoFocus
               type="email"
               name="username"
@@ -48,29 +55,21 @@ class Login extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup
-            controlId="password"
-            bsSize="large"
-            validationState={error === '' ? null : 'error'}
-          >
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
+          <FormGroup>
+            <Label>Password</Label>
+            <Input
+              invalid
               value={password}
               name="password"
               onChange={this.handleChange}
               type="password"
             />
-            {error === '' ? null : <ControlLabel>{error}</ControlLabel>}
+            {error === '' ? null : <FormFeedback>{error}</FormFeedback>}
           </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
+          <Button disabled={!this.validateForm()} type="submit">
             Login
           </Button>
-        </form>
+        </Form>
       </div>
     );
   }

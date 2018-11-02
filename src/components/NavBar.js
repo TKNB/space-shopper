@@ -1,56 +1,83 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from 'reactstrap';
 import { connect } from 'react-redux';
 import { logout } from '../store/auth';
 
 const NavBar = ({ auth, isLoggedIn, logout }) => {
   return (
-    <Navbar inverse collapseOnSelect>
-      <Navbar.Header>
-        <Navbar.Brand>
-          <a href="#">Space Shopper</a>
-        </Navbar.Brand>
-        <Navbar.Toggle />
-      </Navbar.Header>
-      <Navbar.Collapse>
-        <Nav>
-          <NavDropdown eventKey={3} title="Categories" id="basic-nav-dropdown">
-            <MenuItem eventKey={3.1}>Planets</MenuItem>
-            <MenuItem eventKey={3.2}>Comets</MenuItem>
-            <MenuItem eventKey={3.3}>Stars</MenuItem>
-            <MenuItem divider />
-            <MenuItem eventKey={3.3}>Link for extra rich people</MenuItem>
-          </NavDropdown>
-        </Nav>
-        <Nav pullRight>
-          {isLoggedIn ? (
-            <NavItem eventKey={1} href="#" onClick={logout}>
-              Logout
-            </NavItem>
-          ) : (
-            <NavItem eventKey={1} href="#login">
-              Login
+    <Navbar color="faded" light fixed expand="md">
+      <NavbarBrand>
+        <a href="#">Space Shopper</a>
+      </NavbarBrand>
+      <Collapse navbar>
+        <Nav className="ml-auto" navbar>
+          <UncontrolledDropdown nav inNavbar>
+            <DropdownToggle nav caret>
+              Categories
+            </DropdownToggle>
+            <DropdownMenu right>
+              <DropdownItem>Planets</DropdownItem>
+              <DropdownItem>Comets</DropdownItem>
+              <DropdownItem>Stars</DropdownItem>
+              <DropdownItem divider />
+              <DropdownItem>Link for extra rich people</DropdownItem>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+          {isLoggedIn ? null : (
+            <NavItem>
+              <NavLink href="#login">Login</NavLink>
             </NavItem>
           )}
           {isLoggedIn ? (
-            <NavItem eventKey={1} href="#account">
-              Account Details: {auth.username}
-            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                {auth.username}
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  {' '}
+                  <NavLink href="#my_orders">My Orders</NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <NavLink href="#account">
+                    Account Details: {auth.username}
+                  </NavLink>
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  <NavLink href="#" onClick={logout}>
+                    Logout
+                  </NavLink>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
           ) : (
-            <NavItem eventKey={2} href="#signup">
-              Signup
+            <NavItem>
+              <NavLink href="#signup">Signup</NavLink>
             </NavItem>
           )}
           {isLoggedIn ? null : (
-            <NavItem eventKey={4} href="#add_product">
-              Add a New Product
+            <NavItem>
+              <NavLink href="#add_product">Add a New Product</NavLink>
             </NavItem>
           )}
-          <NavItem eventKey={2} href="#cart">
-            Cart
+          <NavItem>
+            <NavLink href="#cart">Cart</NavLink>
           </NavItem>
         </Nav>
-      </Navbar.Collapse>
+      </Collapse>
     </Navbar>
   );
 };

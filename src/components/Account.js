@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
-import axios from 'axios';
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { editUser } from '../store/users';
 class Account extends Component {
   constructor(auth) {
@@ -42,14 +41,11 @@ class Account extends Component {
     console.log(this.props.auth.firstName);
     return (
       <div>
-        <hr />
-        <h2>MyOrders</h2>
-        <hr />
         <div className="Login">
-          <form onSubmit={this.handleSubmit}>
-            <FormGroup controlId="firstName" bsSize="large">
-              <ControlLabel>First Name</ControlLabel>
-              <FormControl
+          <Form onSubmit={this.handleSubmit}>
+            <FormGroup>
+              <Label>First Name</Label>
+              <Input
                 autoFocus
                 type="name"
                 name="firstName"
@@ -57,9 +53,9 @@ class Account extends Component {
                 onChange={this.handleChange}
               />
             </FormGroup>
-            <FormGroup controlId="lastName" bsSize="large">
-              <ControlLabel>Last Name</ControlLabel>
-              <FormControl
+            <FormGroup>
+              <Label>Last Name</Label>
+              <Input
                 autoFocus
                 type="name"
                 name="lastName"
@@ -67,9 +63,9 @@ class Account extends Component {
                 onChange={this.handleChange}
               />
             </FormGroup>
-            <FormGroup controlId="email" bsSize="large">
-              <ControlLabel>Email</ControlLabel>
-              <FormControl
+            <FormGroup>
+              <Label>Email</Label>
+              <Input
                 autoFocus
                 type="email"
                 name="username"
@@ -77,15 +73,10 @@ class Account extends Component {
                 onChange={this.handleChange}
               />
             </FormGroup>
-            <Button
-              block
-              bsSize="large"
-              type="submit"
-              disabled={!this.inputValidate()}
-            >
+            <Button type="submit" disabled={!this.inputValidate()}>
               Update
             </Button>
-          </form>
+          </Form>
         </div>
       </div>
     );
