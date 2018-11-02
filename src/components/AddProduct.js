@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { addProduct } from '../store/products'
-import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Button, Alert } from 'react-bootstrap';
 
 
 class AddProduct extends Component {
@@ -39,10 +39,8 @@ class AddProduct extends Component {
   }
   render() {
     const { handleChange, submitChange } = this
-    const name = this.state.product.name
-    const description = this.state.product.description
-    const price = this.state.product.price
-    const imageUrl = this.state.product.imageUrl
+    const { name, description, price, imageUrl } = this.state.product
+    const { warning } = this.state
     return (
       <div id="editForm">
         <h1>Add Product</h1>
