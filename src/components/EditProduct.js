@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { updateProduct, deleteProduct } from '../store/products'
-import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import { FormGroup, FormControl, ControlLabel, Button, Alert } from 'react-bootstrap';
 
 class EditProduct extends Component {
   constructor({ product }) {
@@ -13,7 +13,8 @@ class EditProduct extends Component {
         description: product.description,
         price: product.price,
         imageUrl: product.imageUrl
-      }
+      },
+      warning: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.submitChange = this.submitChange.bind(this)
@@ -28,7 +29,13 @@ class EditProduct extends Component {
   }
   submitChange(e) {
     e.preventDefault()
-    this.props.updateProduct(this.state.product)
+    if(isNaN(this.state.product.price)) {
+      this.setState({
+        warning: true
+      })
+    } else {
+      this.props.updateProduct(this.state.product)
+    }
   }
   _deleteProduct(e) {
     e.preventDefault()
@@ -43,11 +50,8 @@ class EditProduct extends Component {
   }
   render() {
     const { handleChange, submitChange, _deleteProduct } = this
-    const id = this.state.product.id ? this.state.product.id : ''
-    const name = this.state.product.name ? this.state.product.name : ''
-    const description = this.state.product.description ? this.state.product.description : ''
-    const price = this.state.product.price ? this.state.product.price : ''
-    const imageUrl = this.state.product.imageUrl ? this.state.product.imageUrl : ''
+    const { name, description, price, imageUrl } = this.state.product
+    const { warning } = this.state
     return (
       <div id="editForm">
         <h1>Edit {this.props.product ? this.props.product.name : ''}</h1>
@@ -72,6 +76,10 @@ class EditProduct extends Component {
         <Button block bsSize="large" type="submit"  onClick={_deleteProduct}>
           DELETE PRODUCT
         </Button>
+        {warning ? 
+        <Alert bsStyle="danger">
+          <strong>Error!</strong> Please make sure price is a number.
+        </Alert> : null }
       </div>
     );
   }
@@ -79,8 +87,6 @@ class EditProduct extends Component {
 
 const mapStateToProps = ({ products }, ownProps) => {
   const _product = products.filter( product => product.id === ownProps.id)
-  if(_product.length < 1) {
-  const _product = products.filter(product => product.id === ownProps.id)
   if (_product.length < 1) {
     return ({
       product: {
@@ -93,9 +99,8 @@ const mapStateToProps = ({ products }, ownProps) => {
     })
   }
   return ({
-    product: products.filter( product => product.id === ownProps.id).pop()
+    product: _product.pop()
   })
-}
 }
 
 const mapDispatchToProps = (dispatch) => {
