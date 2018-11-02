@@ -3,7 +3,7 @@ body {
 }
 
 @media all and (min-width: 480px) {
-    .Login {
+  .Login {
     padding: 60px 0;
   }
 
@@ -24,21 +24,21 @@ body {
     max-width: 320px;
   }
 
-  .byline{
+  .byline {
     color: whitesmoke;
     font-style: oblique;
   }
 
-  .featured{
+  .featured {
     color: tomato;
     font-size: 2em;
   }
 
-  .subtitle{
+  .subtitle {
     font-size: 2em;
   }
 
-  .flexContainer{
+  .flexContainer {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-around;
@@ -58,17 +58,17 @@ body {
     height: 200px;
     margin: 10px;
     padding: 10px;
-    background-color: rgba(255,255,255,0);
+    background-color: rgba(255, 255, 255, 0);
     align-content: center;
   }
 
-  .detail{
+  .detail {
     width: 300px;
     height: 300px;
   }
 
-  .detailCard{
-    background-color: rgba(0,0,0,.5);
+  .detailCard {
+    background-color: rgba(0, 0, 0, 0.5);
     height: auto;
     width: auto;
   }

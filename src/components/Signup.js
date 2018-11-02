@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../store/auth';
-import { FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap';
+import {
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormFeedback,
+} from 'reactstrap';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 
@@ -54,10 +61,10 @@ class Signup extends Component {
     }
     return (
       <div className="Login">
-        <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="firstName" bsSize="large">
-            <ControlLabel>First Name</ControlLabel>
-            <FormControl
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <Label>First Name</Label>
+            <Input
               autoFocus
               type="name"
               name="firstName"
@@ -65,9 +72,9 @@ class Signup extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup controlId="lastName" bsSize="large">
-            <ControlLabel>Last Name</ControlLabel>
-            <FormControl
+          <FormGroup>
+            <Label>Last Name</Label>
+            <Input
               autoFocus
               type="name"
               name="lastName"
@@ -75,9 +82,9 @@ class Signup extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup controlId="email" bsSize="large">
-            <ControlLabel>Email</ControlLabel>
-            <FormControl
+          <FormGroup>
+            <Label>Email</Label>
+            <Input
               autoFocus
               type="email"
               name="username"
@@ -85,29 +92,21 @@ class Signup extends Component {
               onChange={this.handleChange}
             />
           </FormGroup>
-          <FormGroup
-            controlId="password"
-            bsSize="large"
-            validationState={error === '' ? null : 'error'}
-          >
-            <ControlLabel>Password</ControlLabel>
-            <FormControl
+          <FormGroup>
+            <Label>Password</Label>
+            <Input
+              invalid={error !== ''}
               value={password}
               name="password"
               onChange={this.handleChange}
               type="password"
             />
-            {error === '' ? null : <ControlLabel>{error}</ControlLabel>}
+            {error === '' ? null : <FormFeedback>{error}</FormFeedback>}
           </FormGroup>
-          <Button
-            block
-            bsSize="large"
-            disabled={!this.validateForm()}
-            type="submit"
-          >
+          <Button disabled={!this.validateForm()} type="submit">
             Register
           </Button>
-        </form>
+        </Form>
       </div>
     );
   }
