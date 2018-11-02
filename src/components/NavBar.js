@@ -68,11 +68,11 @@ const NavBar = ({ auth, isLoggedIn, logout }) => {
               <NavLink href="#signup">Signup</NavLink>
             </NavItem>
           )}
-          {isLoggedIn ? null : (
+          {isLoggedIn ? (
             <NavItem>
               <NavLink href="#add_product">Add a New Product</NavLink>
             </NavItem>
-          )}
+          ) : null}
           <NavItem>
             <NavLink href="#cart">Cart</NavLink>
           </NavItem>
