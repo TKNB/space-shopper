@@ -9,28 +9,34 @@ class Cart extends Component {
   constructor ({ order, auth }) {
     super();
     this.state = {
-      order: [],
-      auth: []
+      cart: {},
+      auth: {}
     }
   }
 
   componentDidUpdate (prevProps) {
-    if (prevProps.order !== this.props.order) {
+    if (prevProps.cart !== this.props.cart) {
+      console.log('!!!----CART1---!!!')
       this.setState({
-        order: this.props.order,
+        cart: this.props.cart,
         auth: this.props.auth
       })
     }
   }
 
   render () {
-    const { order, auth, history } = this.props;
-    if (order) {
+    const { cart, auth, history } = this.props;
+    if (cart.id) {
+      console.log(cart.lineItems)
       return (
         <div id="cart">
-          <CartItems order={order} />
+          <div id="cartItems">
+            <ul>
+              {cart.lineItems ? cart.lineItems.map( lineItem => <CartItems key={lineItem.id} lineItem={lineItem} />): ''}
+            </ul>
+          </div>
           <hr />
-          <Checkout auth={auth} order={order} history={history} />
+          {/* <Checkout auth={auth} history={history} /> */}
         </div>
       )
     }
@@ -42,9 +48,9 @@ class Cart extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  order: state.orders.filter(order => order.userId === state.auth.id && !order.complete).pop(),
-  auth: state.auth
+const mapStateToProps = ({ auth, cart }) => ({
+  cart,
+  auth,
 })
 
 export default connect(mapStateToProps)(Cart);

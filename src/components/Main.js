@@ -4,6 +4,7 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 
 import { loadProducts } from '../store/products';
 import { getOrders } from '../store/orders';
+import { getCart } from '../store/cart';
 import { exchangeTokenForAuth } from '../store/auth';
 
 import Signup from './Signup';
@@ -31,13 +32,12 @@ class Main extends Component {
         <Router>
           <div>
             <Route component={NavBar} />
-            <Route
-              exact
-              path="/"
-              component={() => (
+            <Route exact path="/"
+              render={({ history }) => (
                 <Home
                   myProducts={myProducts}
                   featuredProducts={featuredProducts}
+                  history={history}
                 />
               )}
             />
@@ -55,21 +55,9 @@ class Main extends Component {
             />
             <Route
               path="/product/:id"
-              render={({ match }) => {
-                const productDetail = myProducts.find(
-                  product => product.id === match.params.id
-                );
-                return <ProductDetail product={productDetail} />;
-              }}
-            />
-            <Route
-              path="/featured/product/:id"
-              render={({ match }) => {
-                const productDetail = featuredProducts.find(
-                  product => product.id === match.params.id
-                );
-                return <ProductDetail product={productDetail} />;
-              }}
+              render={({ match, history }) => ( 
+                <ProductDetail history={history} id={match.params.id} />
+              )}
             />
             <Route
               path="/cart"
@@ -106,6 +94,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(exchangeTokenForAuth());
       dispatch(loadProducts());
       dispatch(getOrders());
+      // dispatch(getCart());
     },
   };
 };

@@ -29,37 +29,6 @@ export const placeOrder = (orderId, history) => {
   }
 }
 
-export const updateLineItem = (lineItemId, data) => {
-  return (dispatch) => {
-    if (data.qty === 0) {
-      axios.delete(`/api/orders/line_item/${lineItemId}`)
-        .then(() => dispatch(getOrders()))
-    }
-    else {
-      axios.put(`/api/orders/line_item/${lineItemId}`, data)
-        .then(() => dispatch(getOrders()))
-    }
-  }
-}
-
-export const addToCart = (cart, product) => {
-  const lineItems = cart.lineItems.reduce((map, lineItem) => {
-    map[lineItem.productId] = lineItem;
-    return map;
-  }, {})
-  const lineItem = lineItems[product.id]
-
-  return dispatch => {
-    if (lineItem) {
-      return dispatch(updateLineItem(lineItem.id,
-        { qty: ++lineItem.qty }))
-    }
-    return axios.post(`/api/orders/${cart.id}/line_item/`,
-      { qty: 1, productId: product.id, orderId: cart.id })
-      .then(() => dispatch(getOrders()));
-  }
-};
-
 // REDUCERS
 const ordersReducer = (orders = initialState.orders, action) => {
   switch (action.type) {
