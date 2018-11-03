@@ -3,7 +3,7 @@ const Category = require('../models/Category');
 const Product = require('../models/Product');
 
 //API
-//http://localhost:8888/api/category
+//http://localhost:8888/api/categories
 router.get('/', (req, res, next) => {
   Category.findAll({
     include: [{ model: Product }],

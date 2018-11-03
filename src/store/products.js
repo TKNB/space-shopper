@@ -20,6 +20,8 @@ export const PRODUCTS = {
   UPDATE: 'PRODUCTS.UPDATE',
 };
 
+export const LOAD_CATEGORY = 'LOAD_CATEGORY';
+
 // ACTION CREATORS
 const _loadProducts = products => ({
   type: PRODUCTS.LOAD,
@@ -79,6 +81,13 @@ export const updateReview = review => dispatch => {
   axios
     .put(`/api/reviews/${review.id}`, review)
     .then(() => dispatch(loadProducts));
+};
+
+export const loadCategory = category => dispatch => {
+  axios
+    .get(`/api/categories/${category.id}`)
+    .then(res => res.data)
+    .then(category => dispatch(_loadProducts(category.products)));
 };
 
 // REDUCERS
