@@ -15,7 +15,7 @@ import {
 import { connect } from 'react-redux';
 import { logout } from '../store/auth';
 
-const NavBar = ({ auth, isLoggedIn, logout }) => {
+const NavBar = ({ auth, isLoggedIn, logout, productsCount }) => {
   return (
     <Navbar color="faded" light fixed expand="md">
       <NavbarBrand>
@@ -27,6 +27,11 @@ const NavBar = ({ auth, isLoggedIn, logout }) => {
             <DropdownToggle nav caret>
               Categories
             </DropdownToggle>
+            <NavItem>
+
+              <NavLink href="#products/page/0">Products ({productsCount})</NavLink>
+            </NavItem>
+
             <DropdownMenu right>
               <DropdownItem>Planets</DropdownItem>
               <DropdownItem>Comets</DropdownItem>
@@ -64,10 +69,10 @@ const NavBar = ({ auth, isLoggedIn, logout }) => {
               </DropdownMenu>
             </UncontrolledDropdown>
           ) : (
-            <NavItem>
-              <NavLink href="#signup">Signup</NavLink>
-            </NavItem>
-          )}
+              <NavItem>
+                <NavLink href="#signup">Signup</NavLink>
+              </NavItem>
+            )}
           {isLoggedIn ? (
             <NavItem>
               <NavLink href="#add_product">Add a New Product</NavLink>
@@ -81,10 +86,11 @@ const NavBar = ({ auth, isLoggedIn, logout }) => {
     </Navbar>
   );
 };
-const mapStateToProps = ({ auth }) => {
+const mapStateToProps = ({ auth, productsCount }) => {
   return {
     isLoggedIn: auth.id,
     auth,
+    productsCount,
   };
 };
 const mapDispatchToProps = dispatch => {
