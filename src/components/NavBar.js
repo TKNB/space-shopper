@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../store/auth';
 // import { getCategories } from '../store/categories';
 
+
 class NavBar extends Component {
   constructor (props) {
     super(props);
@@ -30,7 +31,7 @@ class NavBar extends Component {
   }
 
   render () {
-    const { auth, isLoggedIn, itemCount, logout } = this.props;
+    const { auth, isLoggedIn, itemCount, productsCount, logout } = this.props;
     return (
       <Navbar className="fullNavBar" color="faded" fixed expand="md">
         <NavbarBrand href="/">Space Shopper</NavbarBrand>
@@ -38,10 +39,10 @@ class NavBar extends Component {
           <Nav className="d-flex justify-content-end">
             <UncontrolledDropdown nav inNavbar>
               <DropdownToggle className="topNavLink" nav caret>
-                Products
+                Products ({productsCount})
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem className="topNavLink" href="#/products">All Products</DropdownItem>
+                <DropdownItem className="topNavLink" href="#/products">All Products ({productsCount})</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>Planets</DropdownItem>
                 <DropdownItem>Comets</DropdownItem>
@@ -92,13 +93,14 @@ class NavBar extends Component {
     )}
 }
 
-const mapStateToProps = ({ auth, cart }) => {
+const mapStateToProps = ({ auth, cart, productsCount }) => {
   return {
     isLoggedIn: auth.id,
     auth,
     itemCount: !cart.id ? 0 : cart.lineItems.reduce((count,lineItem) => {
       return count + lineItem.qty
-    },0)
+    },0),
+    productsCount
   };
 };
 const mapDispatchToProps = dispatch => {

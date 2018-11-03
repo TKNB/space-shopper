@@ -18,6 +18,23 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+// PAGING
+router.get('/count', (req, res, next) => {
+  Product.count()
+    .then(count => res.send({ count }))
+    .catch(next);
+});
+
+router.get('/page/:index?', (req, res, next) => {
+  let index = 0;
+  const limit = 2;
+  if (req.params.index) { index = req.params.index * 1 };
+  const offset = index * limit;
+  Product.findAll({ limit, offset })
+    .then(products => res.send(products))
+    .catch(next);
+});
+
 // POST new product
 router.post('/', (req, res, next) => {
   Product.create(req.body)

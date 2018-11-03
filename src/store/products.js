@@ -42,9 +42,8 @@ const _updateProduct = product => ({
 });
 
 // THUNKS
-export const loadProducts = () => dispatch => {
-  axios
-    .get('/api/products')
+export const loadProducts = (index) => dispatch => {
+  return axios.get(`/api/products/page/${index}`)
     .then(res => res.data)
     .then(products => dispatch(_loadProducts(products)));
 };
