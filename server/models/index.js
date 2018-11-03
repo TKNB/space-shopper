@@ -148,37 +148,37 @@ const syncAndSeed = () =>
       await Promise.all([
         Review.create({
           rating: 4,
-          reviews: 'Beautiful tail, no regrets!',
+          review: 'Beautiful tail, no regrets!',
           userId: carlSagan.id,
           productId: comet.id,
         }),
         Review.create({
           rating: 5,
-          reviews: 'Will create a monopoly on sun :evil:',
+          review: 'Will create a monopoly on sun :evil:',
           userId: nicolausCopernicus.id,
           productId: sun.id,
         }),
         Review.create({
           rating: 3,
-          reviews: 'No reviews, no one ever came back to leave one.',
+          review: 'No reviews, no one ever came back to leave one.',
           userId: albertEinstein.id,
           productId: blackHole.id,
         }),
         Review.create({
           rating: 2,
-          reviews: 'Fun stuff no one can even see. Was I scammed???',
+          review: 'Fun stuff no one can even see. Was I scammed???',
           userId: carlSagan.id,
           productId: string.id,
         }),
         Review.create({
           rating: 5,
-          reviews: 'my favorite candy since I can remember myself!!!',
+          review: 'my favorite candy since I can remember myself!!!',
           userId: nicolausCopernicus.id,
           productId: milkyWay.id,
         }),
         Review.create({
           rating: 4,
-          reviews: 'pop ROCKS!!!',
+          review: 'pop ROCKS!!!',
           userId: albertEinstein.id,
           productId: popRocks.id,
         }),
