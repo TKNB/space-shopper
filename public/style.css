@@ -154,4 +154,8 @@ body {
     font-weight: bold;
     padding-top: 10px;
   }
+
+  button {
+    margin: 5px;
+  }
 }

@@ -72,8 +72,8 @@ class NavBar extends Component {
                   </NavLink>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem>
-                  <NavLink href="#" onClick={logout}>
+                <DropdownItem href="#" onClick={logout}>
+                  <NavLink >
                     Logout
                   </NavLink>
                 </DropdownItem>

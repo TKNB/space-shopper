@@ -44,11 +44,17 @@ const _updateProduct = product => ({
 });
 
 // THUNKS
-export const loadProducts = () => dispatch => {
-  axios
-    .get('/api/products')
+export const loadProducts = (index) => dispatch => {
+  if (index) {
+    return axios.get(`/api/products/page/${index}`)
+      .then(res => res.data)
+      .then(products => dispatch(_loadProducts(products)));
+  }
+  else {
+    return axios.get(`/api/products/`)
     .then(res => res.data)
     .then(products => dispatch(_loadProducts(products)));
+  }
 };
 
 export const deleteProduct = (product, history) => dispatch => {
