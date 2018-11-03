@@ -12,12 +12,12 @@ class AddProduct extends Component {
         name: '',
         description: '',
         price: 0,
-        // Static image URL for now.  Will add AWS functionality later
-        imageUrl: 'https://i5.walmartimages.com/asr/cb205672-887b-4a98-a8e9-58043efe7740_1.5a29df2e9cacc80b5ef85eeefe7564fb.jpeg?odnHeight=450&odnWidth=450&odnBg=FFFFFF'
       },
-      warning: false
+      warning: false,
+      file: '',
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleFileUpload = this.handleFileUpload.bind(this)
     this.submitChange = this.submitChange.bind(this)
   }
   handleChange(e) {
@@ -27,6 +27,9 @@ class AddProduct extends Component {
       product
     })
   }
+  handleFileUpload(e) {
+    this.setState({file: e.target.files[0]});
+  }
   submitChange(e) {
     e.preventDefault()
     if(isNaN(this.state.product.price)) {
@@ -34,7 +37,9 @@ class AddProduct extends Component {
         warning: true
       })
     } else {
-      this.props.addProduct( this.state.product, this.props.history )
+      const product = this.state.product;
+      product.userId = this.props.auth.id;
+      this.props.addProduct( product, this.state.file, this.props.history )
     }
   }
   render() {
@@ -44,7 +49,10 @@ class AddProduct extends Component {
     return (
       <div id="editForm">
         <h1>Add Product</h1>
-        <img width="50%" src={imageUrl} alt={`${name} image`} />
+        <FormGroup controlId="formImage" >
+          <ControlLabel>Image</ControlLabel>
+          <FormControl type='file' onChange={this.handleFileUpload} />
+        </FormGroup>
         <form onSubmit={submitChange}>
           <FormGroup controlId="formName" >
             <ControlLabel>Name</ControlLabel>
@@ -71,10 +79,16 @@ class AddProduct extends Component {
   }
 }
 
+const mapStateToProps = ({ auth }) => {
+  return ({
+      auth
+  })
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
-    addProduct: (product, history) => dispatch(addProduct(product, history))
+    addProduct: (product, file, history) => dispatch(addProduct(product, file, history))
   }
 }
 
-export default connect(null, mapDispatchToProps)(AddProduct);
+export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);
