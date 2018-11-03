@@ -124,7 +124,7 @@ const syncAndSeed = () =>
           categoryId: quantumPhysics.id,
         }),
         Product.create({
-          name: 'Milky Way Candy Bar',
+          name: 'Milky Way',
           description: "It's a candy bar",
           price: 2,
           imageUrl:

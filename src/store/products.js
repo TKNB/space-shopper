@@ -43,9 +43,16 @@ const _updateProduct = product => ({
 
 // THUNKS
 export const loadProducts = (index) => dispatch => {
-  return axios.get(`/api/products/page/${index}`)
+  if (index) {
+    return axios.get(`/api/products/page/${index}`)
+      .then(res => res.data)
+      .then(products => dispatch(_loadProducts(products)));
+  }
+  else {
+    return axios.get(`/api/products/`)
     .then(res => res.data)
     .then(products => dispatch(_loadProducts(products)));
+  }
 };
 
 export const deleteProduct = (product, history) => dispatch => {
