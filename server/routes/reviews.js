@@ -11,4 +11,14 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/:productId', (req, res, next) => {
+  Review.findAll({
+    where: {
+      productId: req.params.productId,
+    },
+  })
+    .then(reviews => res.send(reviews))
+    .catch(next);
+});
+
 module.exports = router;
