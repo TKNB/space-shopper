@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   Collapse,
   Navbar,
@@ -13,78 +13,98 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { logout } from '../store/auth';
+import { Link } from 'react-router-dom';
 
-const NavBar = ({ auth, isLoggedIn, logout }) => {
-  return (
-    <Navbar color="faded" fixed expand="md">
-      <NavbarBrand href="/">Space Shopper</NavbarBrand>
-      <Nav className="ml-auto" navbar>
-        <UncontrolledDropdown nav inNavbar>
-          <DropdownToggle nav caret>
-            Categories
-          </DropdownToggle>
-          <DropdownMenu right>
-            <DropdownItem>Planets</DropdownItem>
-            <DropdownItem>Comets</DropdownItem>
-            <DropdownItem>Stars</DropdownItem>
-            <DropdownItem divider />
-            <DropdownItem>Link for extra rich people</DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
-        {isLoggedIn ? null : (
-          <NavItem>
-            <NavLink href="#login">Login</NavLink>
-          </NavItem>
-        )}
-        {isLoggedIn ? (
-          <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle nav caret>
-              {auth.username}
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem>
-                {' '}
-                <NavLink href="#my_orders">My Orders</NavLink>
-              </DropdownItem>
-              <DropdownItem>
-                {' '}
-                <NavLink href="#add_product">Add a New Product</NavLink>
-              </DropdownItem>
-              <DropdownItem>
-                <NavLink href="#account">
-                  Account Details: {auth.username}
-                </NavLink>
-              </DropdownItem>
-              <DropdownItem divider />
-              <DropdownItem>
-                <NavLink href="#" onClick={logout}>
-                  Logout
-                </NavLink>
-              </DropdownItem>
-            </DropdownMenu>
-          </UncontrolledDropdown>
-        ) : (
-          <NavItem>
-            <NavLink href="#signup">Signup</NavLink>
-          </NavItem>
-        )}
-        <NavItem>
-          <NavLink href="#cart">Cart</NavLink>
-        </NavItem>
-      </Nav>
-    </Navbar>
-  );
-};
-const mapStateToProps = ({ auth }) => {
+import { logout } from '../store/auth';
+// import { getCategories } from '../store/categories';
+
+class NavBar extends Component {
+  constructor (props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.state = { isOpen: false };
+  }
+
+  toggle() {
+    this.setState({ collapse: !this.state.isOpen });
+  }
+
+  render () {
+    const { auth, isLoggedIn, itemCount, logout } = this.props;
+    return (
+      <Navbar className="fullNavBar" color="faded" fixed expand="md">
+        <NavbarBrand href="/">Space Shopper</NavbarBrand>
+        <Collapse className="mr-auto" isOpen={this.state.isOpen} navbar>
+          <Nav className="d-flex justify-content-end">
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle className="topNavLink" nav caret>
+                Products
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem className="topNavLink" href="#/products">All Products</DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>Planets</DropdownItem>
+                <DropdownItem>Comets</DropdownItem>
+                <DropdownItem>Stars</DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+            {isLoggedIn ? (
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle className="topNavLink" nav caret>
+                {auth.username}
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  {' '}
+                  <NavLink href="#my_orders">
+                    My Orders
+                  </NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <NavLink href="#add_product">
+                    Add a New Product
+                  </NavLink>
+                </DropdownItem>
+                <DropdownItem>
+                  <NavLink href="#account">
+                    Account Details
+                  </NavLink>
+                </DropdownItem>
+                <DropdownItem divider />
+                <DropdownItem>
+                  <NavLink href="#" onClick={logout}>
+                    Logout
+                  </NavLink>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
+          ) : (
+            <NavItem>
+              <NavLink className="topNavLink" href="#login">Login</NavLink>
+            </NavItem>
+            )}
+            <NavItem>
+              <NavLink className="topNavLink" href="#cart">Cart ({itemCount})</NavLink>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    )}
+}
+
+const mapStateToProps = ({ auth, cart }) => {
   return {
     isLoggedIn: auth.id,
     auth,
+    itemCount: !cart.id ? 0 : cart.lineItems.reduce((count,lineItem) => {
+      return count + lineItem.qty
+    },0)
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
     logout: () => dispatch(logout()),
+    // getCategories: () => dispatch(getCategories())
   };
 };
 export default connect(
