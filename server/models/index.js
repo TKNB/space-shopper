@@ -16,7 +16,9 @@ Product.hasMany(LineItem);
 Product.belongsTo(Category);
 Category.hasMany(Product);
 Review.belongsTo(Product);
+Product.hasMany(Review);
 Review.belongsTo(User);
+User.hasMany(Review);
 
 const syncAndSeed = () =>
   conn
