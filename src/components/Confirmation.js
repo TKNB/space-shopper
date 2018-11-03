@@ -1,26 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Card, CardImg, CardBody, CardTitle, CardText, Button } from 'reactstrap';
+
+import ordersReducer from '../store/orders';
 
 const Confirmation = ({ order, props }) => {
   if (order) {
     return (
       <div id="confirmation">
-        <h3>Wow! That order was out of this world!</h3>
-        <div id="orderSummary">
-          <ul>
+        <h2>Wow! That order was out of this world!</h2>
+        <br />
+        <p>Confirmation Code: {order.id}</p>
+        <hr />
+        <h3>Products</h3>
+        <div id="orderItems">
             {
             order.lineItems.map(lineItem => { return (
-              <li key={lineItem.id}>
-                Name: {lineItem.product.name} || 
-                Price: ${lineItem.product.price / 100} || 
-                Qty: {lineItem.qty}
-              </li>
+              <Card key={lineItem.id}>
+                <CardImg width="100%" src={lineItem.product.imageUrl} alt={lineItem.product.name} />
+                <CardBody>
+                  <CardTitle>{lineItem.product.name}</CardTitle>
+                  <CardText>
+                    Price: ${lineItem.product.price / 100}
+                    <br/>
+                    Qty: {lineItem.qty}
+                  </CardText>
+                </CardBody>
+              </Card>
             )})
             }
-          </ul>
         </div>
-        <button type="button" onClick={() => props.history.push("/")}>Home</button>
+        <Button type="button" onClick={() => props.history.push("/")}>Home</Button>
       </div>
     )
   }
@@ -28,7 +39,7 @@ const Confirmation = ({ order, props }) => {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  order: state.orders.filter(order => order.id === ownProps.props.match.params.orderId).pop(),
+  order: state.orders.filter(_order => _order.id === ownProps.props.match.params.orderId).pop(),
   props: ownProps.props
 })
 
