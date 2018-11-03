@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { HashRouter as Router, Route } from 'react-router-dom';
 
 import { loadProducts } from '../store/products';
+import { loadProductsCount } from '../store/productsCount';
 import { getOrders } from '../store/orders';
 import { getCart } from '../store/cart';
 import { exchangeTokenForAuth } from '../store/auth';
@@ -12,6 +13,7 @@ import Login from './Login';
 import Home from './Home';
 import NavBar from './NavBar';
 import Products from './Products';
+import PagedProducts from './PagedProducts';
 import ProductDetail from './ProductDetail';
 import EditProduct from './EditProduct';
 import Cart from './Cart';
@@ -26,7 +28,7 @@ class Main extends Component {
   }
 
   render() {
-    const { myProducts, featuredProducts } = this.props;
+    const { myProducts, featuredProducts, products } = this.props;
     return (
       <div>
         <Router>
@@ -45,7 +47,12 @@ class Main extends Component {
             <Route path="/signup" component={Signup} />
             <Route path="/account" component={Account} />
             <Route path="/my_orders" component={MyOrders} />
+
+            <Route exact path="/products/page/:index?" component={PagedProducts} />
+
             <Route path="/products" component={Products} />
+
+
             <Route path="/add_product" component={AddProduct} />
             <Route
               path="/edit/product/:id"
@@ -55,7 +62,7 @@ class Main extends Component {
             />
             <Route
               path="/product/:id"
-              render={({ match, history }) => ( 
+              render={({ match, history }) => (
                 <ProductDetail history={history} id={match.params.id} />
               )}
             />
@@ -84,6 +91,7 @@ const mapStateToProps = ({ products, auth }) => {
     auth,
     myProducts,
     featuredProducts,
+    products,
   };
 };
 
@@ -93,6 +101,7 @@ const mapDispatchToProps = dispatch => {
     init: () => {
       dispatch(exchangeTokenForAuth());
       dispatch(loadProducts());
+      dispatch(loadProductsCount());
       dispatch(getOrders());
       // dispatch(getCart());
     },

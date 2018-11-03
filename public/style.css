@@ -30,7 +30,7 @@ body {
   }
 
   .featured {
-    color: tomato;
+    color: greenyellow;
     font-size: 2em;
   }
 
@@ -134,7 +134,24 @@ body {
   .nav {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+  }
+
+  .fullNavBar * {
+    color: #00004d;
+  }
+
+  .Login a {
+    color: whitesmoke;
+  }
+
+  .topNavLink {
+    font-weight: bold;
+  }
+
+  a.navbar-brand {
+    font-weight: bold;
+    padding-top: 10px;
   }
 }

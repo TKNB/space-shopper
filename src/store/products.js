@@ -9,7 +9,7 @@ const initialState = {
     price: INT,
     imageUrl: '',
     */
-  ]
+  ],
 };
 
 // ACTION TYPES
@@ -19,11 +19,16 @@ export const PRODUCTS = {
   ADD: 'PRODUCTS.ADD',
   UPDATE: 'PRODUCTS.UPDATE',
 };
+export const REVIEWS = {
+  ADD: 'REVIEWS.ADD',
+  DELETE: 'REVIEWS.DELETE',
+  UPDATE: 'REVIEWS.UPDATE',
+};
 
 // ACTION CREATORS
 const _loadProducts = products => ({
   type: PRODUCTS.LOAD,
-  products
+  products,
 });
 
 const _deleteProduct = product => ({
@@ -36,19 +41,19 @@ const _updateProduct = product => ({
   product,
 });
 
-
 // THUNKS
-export const loadProducts = () => dispatch => {
-  axios.get('/api/products')
+export const loadProducts = (index) => dispatch => {
+  return axios.get(`/api/products/page/${index}`)
     .then(res => res.data)
     .then(products => dispatch(_loadProducts(products)));
 };
 
 export const deleteProduct = (product, history) => dispatch => {
-  axios.delete(`/api/products/${product.id}`)
+  axios
+    .delete(`/api/products/${product.id}`)
     .then(res => res.data)
     .then(() => dispatch(_deleteProduct(product)))
-    .then(() => history.push('/products'))
+    .then(() => history.push('/products'));
 };
 
 export const updateProduct = (product, file) => {
@@ -86,13 +91,16 @@ export const addProduct = (product, file, history) => {
   }
 };
 
-const createImage = (data)=> {
-  return (dispatch)=> {
-    return axios.post('/api/images', { data })
-      .then( res => res.data)
-      .then( (image) => console.log(image));
-      // .then( (image) => dispatch(updateProduct({})));
-  }
+export const addReview = review => dispatch => {
+  axios.post('/api/reviews/', review).then(() => dispatch(loadProducts));
+};
+export const deleteReview = review => dispatch => {
+  axios.delete(`/api/reviews/${review.id}`).then(() => dispatch(loadProducts));
+};
+export const updateReview = review => dispatch => {
+  axios
+    .put(`/api/reviews/${review.id}`, review)
+    .then(() => dispatch(loadProducts));
 };
 
 // REDUCERS
@@ -103,10 +111,13 @@ const productsReducer = (products = initialState.products, action) => {
     case PRODUCTS.DELETE:
       return products.filter(product => product.id !== action.product.id);
     case PRODUCTS.UPDATE:
-      const _products = products.filter(product => product.id !== action.product.id);
-      return [..._products, action.product]
-    default: return products;
+      const _products = products.filter(
+        product => product.id !== action.product.id
+      );
+      return [..._products, action.product];
+    default:
+      return products;
   }
-}
+};
 
 export default productsReducer;

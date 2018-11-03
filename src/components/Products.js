@@ -4,7 +4,7 @@ import { CardDeck} from 'reactstrap';
 
 import ProductCard from './ProductCard';
 
-const Products = ({ products }) => {
+export default ({ products }) => {
   return (
     <div>
       <h2>Products</h2>
@@ -14,7 +14,3 @@ const Products = ({ products }) => {
     </div>
   )
 };
-
-const mapStateToProps = ({ products }) => ({ products });
-
-export default connect(mapStateToProps)(Products);
