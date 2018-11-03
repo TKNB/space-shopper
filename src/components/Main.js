@@ -24,7 +24,6 @@ import AddProduct from './AddProduct';
 
 class Main extends Component {
   componentDidMount() {
-    console.log(window.location.pathname);
     this.props.init();
   }
 
