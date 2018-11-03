@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../store/auth';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import {
   Button,
   Form,
@@ -66,9 +66,15 @@ class Login extends Component {
             />
             {error === '' ? null : <FormFeedback>{error}</FormFeedback>}
           </FormGroup>
+          
           <Button disabled={!this.validateForm()} type="submit">
             Login
           </Button>
+          <br />
+          <br />
+          <Link to="/signup">
+            New astronaut? Sign up.
+          </Link>
         </Form>
       </div>
     );

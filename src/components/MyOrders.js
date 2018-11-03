@@ -13,33 +13,29 @@ import {
 const MyOrders = ({ orders }) => {
   return (
     <div>
-      <hr />
       <h2>MyOrders</h2>
-      {console.log(orders)}
       {orders.map(order => {
         return (
           <div key={order.id}>
+            <hr />
             <h3>Your order from: {order.createdAt.slice(0, 10)}</h3>
-            <CardDeck>
-              {order.lineItems.map(lineItem => {
-                return (
-                  <Card key={lineItem.id} className="flexContainer">
-                    <CardImg
-                      className="card"
-                      top
-                      width="100%"
-                      src={lineItem.product.imageUrl}
-                      alt="Card image cap"
-                    />
-                    <CardBody>
-                      <CardTitle>{lineItem.product.name}</CardTitle>
-                      <CardSubtitle>QTY: {lineItem.qty}</CardSubtitle>
-                      <CardText>{lineItem.product.description}</CardText>
-                    </CardBody>
-                  </Card>
-                );
-              })}
-            </CardDeck>
+            <div  id="orderItems">
+              {
+              order.lineItems.map(lineItem => { return (
+                <Card key={lineItem.id}>
+                  <CardImg width="100%" src={lineItem.product.imageUrl} alt={lineItem.product.name} />
+                  <CardBody>
+                    <CardTitle>{lineItem.product.name}</CardTitle>
+                    <CardText>
+                      Price: ${lineItem.product.price / 100}
+                      <br/>
+                      Qty: {lineItem.qty}
+                    </CardText>
+                  </CardBody>
+                </Card>
+              )})
+              }
+            </div>
           </div>
         );
       })}

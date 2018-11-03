@@ -19,6 +19,11 @@ export const PRODUCTS = {
   ADD: 'PRODUCTS.ADD',
   UPDATE: 'PRODUCTS.UPDATE',
 };
+export const REVIEWS = {
+  ADD: 'REVIEWS.ADD',
+  DELETE: 'REVIEWS.DELETE',
+  UPDATE: 'REVIEWS.UPDATE',
+};
 
 export const LOAD_CATEGORY = 'LOAD_CATEGORY';
 
