@@ -1,15 +1,22 @@
 const router = require('express').Router();
 const Product = require('../models/Product');
+const Review = require('../models/Review');
 
 //API
 //http://localhost:8888/api/products
 
 // GET products
 router.get('/', (req, res, next) => {
-  Product.findAll()
+  Product.findAll({
+    include: [
+      {
+        model: Review,
+      },
+    ],
+  })
     .then(products => res.send(products))
-    .catch(next)
-})
+    .catch(next);
+});
 
 // PAGING
 router.get('/count', (req, res, next) => {
@@ -32,23 +39,23 @@ router.get('/page/:index?', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Product.create(req.body)
     .then(product => res.send(product))
-    .catch(next)
-})
+    .catch(next);
+});
 
 // DELETE product by id
 router.delete('/:id', (req, res, next) => {
   Product.findByPrimary(req.params.id)
     .then(product => product.destroy())
     .then(() => res.sendStatus(202))
-    .catch(next)
-})
+    .catch(next);
+});
 
 // PUT updates to product by id
 router.put('/:id', (req, res, next) => {
   Product.findById(req.params.id)
     .then(product => product.update(req.body))
     .then(product => res.send(product))
-    .catch(next)
-})
+    .catch(next);
+});
 
 module.exports = router;

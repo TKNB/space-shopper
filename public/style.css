@@ -30,7 +30,7 @@ body {
   }
 
   .featured {
-    color: tomato;
+    color: greenyellow;
     font-size: 2em;
   }
 
@@ -54,12 +54,17 @@ body {
   }
 
   .card {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 400px;
     margin: 10px;
     padding: 10px;
     background-color: rgba(255, 255, 255, 0);
     align-content: center;
+  }
+
+  .card-img {
+    width: 200px;
+    height: 200px;
   }
 
   .detail {
@@ -68,7 +73,6 @@ body {
   }
 
   .detailCard {
-    background-color: rgba(0, 0, 0, 0.5);
     height: auto;
     width: auto;
   }
@@ -90,5 +94,64 @@ body {
     width: 80%;
     max-width: 250px;
     border: 1px solid;
+  }
+
+  #cart {
+    display: flex;
+    padding: 10px;
+  }
+
+  #cartItems {
+    flex: 3;
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  #checkout {
+    flex: 1;
+    background-color: rgb(224, 224, 235, .3);
+    border-radius: 10px;
+  }
+
+  #checkout table {
+    width: 100%;
+  }
+
+  #checkout td {
+    text-align: left;
+  }
+
+  #checkout .val {
+    text-align: right;
+  }
+
+  #orderItems {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+  }
+
+  .nav {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .fullNavBar * {
+    color: #00004d;
+  }
+
+  .Login a {
+    color: whitesmoke;
+  }
+
+  .topNavLink {
+    font-weight: bold;
+  }
+
+  a.navbar-brand {
+    font-weight: bold;
+    padding-top: 10px;
   }
 }

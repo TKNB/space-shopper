@@ -1,21 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Card, CardHeader, CardTitle, CardText, Button } from 'reactstrap';
 
 import { placeOrder } from '../store/orders';
 import cartReducer from '../store/cart';
+import { currency } from '../../utils/formatter';
 
 const Checkout = ({ order, orderSummary, auth, history, placeOrder }) => {
   const { subtotal, discount, tax } = orderSummary; // orderSummary generated in mapStateToProps
   if(order.id) {
     return (
       <div id="checkout">
-        <p>Subtotal: {subtotal / 100}</p>
-        <p>Discount: {discount / 100}</p>
-        <p>Tax: {tax / 100}</p>
-        <p>Total: {(subtotal - discount + tax) / 100}</p>
-        <hr />
-        <p>Payment User: {auth.firstName} {auth.lastName}</p>
-        <button type="button" onClick={() => placeOrder(order.id, history)}> Place order </button>
+        <Card>
+          <CardTitle>Blastoff Summary</CardTitle>
+          <table>
+            <tbody>
+              <tr><td>Subtotal</td><td className="val">{currency.format(subtotal / 100)}</td></tr>
+              <tr><td>Discount</td><td className="val">{currency.format(discount / 100)}</td></tr>
+              <tr><td>Tax</td><td className="val">{currency.format(tax / 100)}</td></tr>
+              <tr><td>Total</td><td className="val">{currency.format((subtotal - discount + tax) / 100)}</td></tr>
+            </tbody>
+          </table>
+          <hr />
+          <CardText>Payment User: {auth.firstName} {auth.lastName}</CardText>
+          <Button type="button" onClick={() => placeOrder(order.id, history)}> Blastoff </Button>
+        </Card>
       </div>
     )
   } else {

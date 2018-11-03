@@ -8,6 +8,7 @@ import productsCountReducer from './productsCount';
 import ordersReducer from './orders';
 import cartReducer from './cart';
 import authReducer from './auth';
+import categoriesReducer from './categories';
 
 const reducer = combineReducers({
   users: usersReducer,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   orders: ordersReducer,
   cart: cartReducer,
   auth: authReducer,
+  categories: categoriesReducer,
 });
 
 export default createStore(reducer, applyMiddleware(logger, thunk));

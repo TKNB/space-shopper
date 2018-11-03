@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-
+import _ from 'lodash';
 import CartItems from './CartItems';
 import Checkout from './Checkout';
 
 class Cart extends Component {
-  constructor ({ order, auth }) {
+  constructor({ order, auth }) {
     super();
     this.state = {
       cart: {},
@@ -14,7 +14,7 @@ class Cart extends Component {
     }
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     if (prevProps.cart !== this.props.cart) {
       console.log('!!!----CART1---!!!')
       this.setState({
@@ -24,25 +24,25 @@ class Cart extends Component {
     }
   }
 
-  render () {
+  render() {
     const { cart, auth, history } = this.props;
+    let sortedLineItems = _.sortBy(cart.lineItems, 'createdAt', n => Math.sin(n)) || [];
+
     if (cart.id) {
       console.log(cart.lineItems)
       return (
         <div id="cart">
           <div id="cartItems">
-            <ul>
-              {cart.lineItems ? cart.lineItems.map( lineItem => <CartItems key={lineItem.id} lineItem={lineItem} />): ''}
-            </ul>
+            {cart.lineItems ? sortedLineItems.map(lineItem => <CartItems key={lineItem.id} lineItem={lineItem} />)
+              : ''}
           </div>
-          <hr />
           <Checkout auth={auth} order={cart} history={history} />
         </div>
       )
     }
     else {
       return (
-        <div id="cart">Your cart is as empty as a black hole!</div>
+        <div>Your cart is as empty as a black hole!</div>
       )
     }
   }
