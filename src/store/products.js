@@ -25,6 +25,8 @@ export const REVIEWS = {
   UPDATE: 'REVIEWS.UPDATE',
 };
 
+export const LOAD_CATEGORY = 'LOAD_CATEGORY';
+
 // ACTION CREATORS
 const _loadProducts = products => ({
   type: PRODUCTS.LOAD,
@@ -42,8 +44,9 @@ const _updateProduct = product => ({
 });
 
 // THUNKS
-export const loadProducts = (index) => dispatch => {
-  return axios.get(`/api/products/page/${index}`)
+export const loadProducts = () => dispatch => {
+  axios
+    .get('/api/products')
     .then(res => res.data)
     .then(products => dispatch(_loadProducts(products)));
 };
@@ -74,13 +77,22 @@ export const addProduct = (product, history) => dispatch => {
 export const addReview = review => dispatch => {
   axios.post('/api/reviews/', review).then(() => dispatch(loadProducts));
 };
+
 export const deleteReview = review => dispatch => {
   axios.delete(`/api/reviews/${review.id}`).then(() => dispatch(loadProducts));
 };
+
 export const updateReview = review => dispatch => {
   axios
     .put(`/api/reviews/${review.id}`, review)
     .then(() => dispatch(loadProducts));
+};
+
+export const loadCategory = category => dispatch => {
+  axios
+    .get(`/api/categories/${category.id}`)
+    .then(res => res.data)
+    .then(category => dispatch(_loadProducts(category.products)));
 };
 
 // REDUCERS
