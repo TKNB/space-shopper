@@ -4,6 +4,7 @@ const LineItem = require('./LineItem');
 const Product = require('./Product');
 const User = require('./User');
 const Category = require('./Category');
+const Review = require('./Review');
 
 Order.belongsTo(User);
 User.hasMany(Order);
@@ -14,6 +15,8 @@ LineItem.belongsTo(Product);
 Product.hasMany(LineItem);
 Product.belongsTo(Category);
 Category.hasMany(Product);
+Review.belongsTo(Product);
+Review.belongsTo(User);
 
 const syncAndSeed = () =>
   conn
@@ -90,11 +93,6 @@ const syncAndSeed = () =>
           imageUrl: 'http://www.clker.com/cliparts/Q/f/q/B/X/O/comet-md.png',
           userId: carlSagan.id,
           categoryId: comets.id,
-          rating: 4,
-          reviews: [
-            'Beautiful tail, no regrets!',
-            'Def naming after my wife lol',
-          ],
         }),
         Product.create({
           name: 'Sun',
@@ -103,11 +101,6 @@ const syncAndSeed = () =>
           imageUrl: 'https://pngimg.com/uploads/sun/sun_PNG13424.png',
           userId: carlSagan.id,
           categoryId: stars.id,
-          rating: 5,
-          reviews: [
-            'Shines sooo bright!',
-            'Will create a monopoly on sun :evil:',
-          ],
         }),
         Product.create({
           name: 'Black hole',
@@ -118,8 +111,6 @@ const syncAndSeed = () =>
             'https://moziru.com/images/black-hole-clipart-transparent-3.png',
           userId: carlSagan.id,
           categoryId: quantumPhysics.id,
-          rating: 3,
-          reviews: ['No reviews, no one ever came back to leave one.'],
         }),
         Product.create({
           name: 'String',
@@ -129,11 +120,6 @@ const syncAndSeed = () =>
             'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Calabi_yau_formatted.svg/220px-Calabi_yau_formatted.svg.png',
           userId: albertEinstein.id,
           categoryId: quantumPhysics.id,
-          rating: 2,
-          reviews: [
-            'Fun stuff no one can even see. Was I scammed???',
-            'Bummer lol',
-          ],
         }),
         Product.create({
           name: 'Milky Way Candy Bar',
@@ -144,11 +130,6 @@ const syncAndSeed = () =>
           featured: true,
           userId: albertEinstein.id,
           categoryId: chocolates.id,
-          rating: 5,
-          reviews: [
-            'mmmm snacks',
-            'my favorite candy since I can remember myself!!!',
-          ],
         }),
         Product.create({
           name: 'Pop Rocks',
@@ -159,11 +140,45 @@ const syncAndSeed = () =>
           featured: true,
           userId: nicolausCopernicus.id,
           categoryId: chocolates.id,
+        }),
+      ]);
+
+      await Promise.all([
+        Review.create({
+          rating: 4,
+          reviews: 'Beautiful tail, no regrets!',
+          userId: carlSagan.id,
+          productId: comet.id,
+        }),
+        Review.create({
+          rating: 5,
+          reviews: 'Will create a monopoly on sun :evil:',
+          userId: nicolausCopernicus.id,
+          productId: sun.id,
+        }),
+        Review.create({
           rating: 3,
-          reviews: [
-            'pop ROCKS!!!',
-            'Cannot live without them, space high five !',
-          ],
+          reviews: 'No reviews, no one ever came back to leave one.',
+          userId: albertEinstein.id,
+          productId: blackHole.id,
+        }),
+        Review.create({
+          rating: 2,
+          reviews: 'Fun stuff no one can even see. Was I scammed???',
+          userId: carlSagan.id,
+          productId: string.id,
+        }),
+        Review.create({
+          rating: 5,
+          reviews: 'my favorite candy since I can remember myself!!!',
+          userId: nicolausCopernicus.id,
+          productId: milkyWay.id,
+        }),
+        Review.create({
+          rating: 4,
+          reviews: 'pop ROCKS!!!',
+          userId: albertEinstein.id,
+          productId: popRocks.id,
         }),
       ]);
 

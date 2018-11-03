@@ -32,18 +32,6 @@ const Product = conn.define('product', {
     type: Sequelize.BOOLEAN,
     defaultValue: false,
   },
-  rating: {
-    type: Sequelize.INTEGER,
-    defaultValue: null,
-    validate: {
-      isDecimal: true,
-      max: 5,
-      min: 0,
-    },
-  },
-  reviews: {
-    type: Sequelize.ARRAY(Sequelize.TEXT),
-  },
   //userId:
 });
 
