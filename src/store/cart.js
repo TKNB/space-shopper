@@ -18,7 +18,7 @@ const cartReducer = (cart = {}, action) => {
 
 // THUNK CREATORS
 export const getCart = () => {
-  return(dispatch, getState) => {
+  return (dispatch, getState) => {
     const { auth } = getState();
     return axios.get(`/api/orders/${auth.id}/cart`)
       .then(res => res.data)
@@ -30,7 +30,7 @@ export const updateLineItem = (lineItemId, data) => {
   return (dispatch) => {
     if (data.qty === 0) {
       axios.delete(`/api/orders/line_item/${lineItemId}`)
-        .then(() => dispatch(getOrders()))
+        .then(() => dispatch(getCart()))
     }
     else {
       axios.put(`/api/orders/line_item/${lineItemId}`, data)
@@ -39,33 +39,33 @@ export const updateLineItem = (lineItemId, data) => {
   }
 }
 
-export const addToCart = ( product, quantity, history ) => {
+export const addToCart = (product, quantity, history) => {
   return async (dispatch, getState) => {
     var { cart, auth } = getState();
-    if(!auth.id) {
+    if (!auth.id) {
       history.push('/login')
     }
-    if(!cart.id) {
+    if (!cart.id) {
       try {
-        const {data} = await axios.post(`/api/orders/${auth.id}`)
-        cart=data;
-        cart.lineItems=[]
+        const { data } = await axios.post(`/api/orders/${auth.id}`)
+        cart = data;
+        cart.lineItems = []
         dispatch(_getCart(cart));
       }
-      catch(ex) {
+      catch (ex) {
         console.log(ex)
       }
     }
-    const item = cart.lineItems.find( item => item.product.name === product.name);
-    if(item) {
-      const qty = item.qty+quantity;
-      dispatch(updateLineItem(item.id, {qty}))
+    const item = cart.lineItems.find(item => item.product.name === product.name);
+    if (item) {
+      const qty = item.qty + quantity;
+      dispatch(updateLineItem(item.id, { qty }))
     } else {
       try {
         await axios.post(`/api/orders/${cart.id}/line_item`, { productId: product.id })
         dispatch(getCart())
       }
-      catch(ex) {
+      catch (ex) {
         console.log(ex)
       }
     }
