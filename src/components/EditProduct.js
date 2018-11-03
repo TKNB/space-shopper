@@ -14,9 +14,11 @@ class EditProduct extends Component {
         price: product.price,
         imageUrl: product.imageUrl
       },
-      warning: false
+      warning: false,
+      file: ''
     }
     this.handleChange = this.handleChange.bind(this)
+    this.handleFileUpload = this.handleFileUpload.bind(this)
     this.submitChange = this.submitChange.bind(this)
     this._deleteProduct = this._deleteProduct.bind(this)
   }
@@ -27,6 +29,9 @@ class EditProduct extends Component {
       product
     })
   }
+  handleFileUpload(e) {
+    this.setState({file: e.target.files[0]});
+  }
   submitChange(e) {
     e.preventDefault()
     if(isNaN(this.state.product.price)) {
@@ -34,7 +39,7 @@ class EditProduct extends Component {
         warning: true
       })
     } else {
-      this.props.updateProduct(this.state.product)
+      this.props.updateProduct(this.state.product, this.state.file )
     }
   }
   _deleteProduct(e) {
@@ -44,7 +49,7 @@ class EditProduct extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.product !== prevProps.product) {
       this.setState({
-        product: this.props.product
+        product: this.props.product,
       })
     }
   }
@@ -56,6 +61,10 @@ class EditProduct extends Component {
       <div id="editForm">
         <h1>Edit {this.props.product ? this.props.product.name : ''}</h1>
         <img width="50%" src={imageUrl} alt={`${name} image`} />
+        <FormGroup controlId="formImage" >
+          <ControlLabel>Image</ControlLabel>
+          <FormControl type='file' onChange={this.handleFileUpload} />
+        </FormGroup>
         <form onSubmit={submitChange}>
           <FormGroup controlId="formName" >
             <ControlLabel>Name</ControlLabel>
@@ -105,8 +114,8 @@ const mapStateToProps = ({ products }, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateProduct: (product) => dispatch(updateProduct(product)),
-    deleteProduct: (id, history) => dispatch(deleteProduct(id, history))
+    updateProduct: (product, file) => dispatch(updateProduct(product, file)),
+    deleteProduct: (id, history) => dispatch(deleteProduct(id, history)),
   }
 }
 
