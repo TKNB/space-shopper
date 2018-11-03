@@ -25,6 +25,8 @@ export const REVIEWS = {
   UPDATE: 'REVIEWS.UPDATE',
 };
 
+export const LOAD_CATEGORY = 'LOAD_CATEGORY';
+
 // ACTION CREATORS
 const _loadProducts = products => ({
   type: PRODUCTS.LOAD,
@@ -63,31 +65,60 @@ export const deleteProduct = (product, history) => dispatch => {
     .then(() => history.push('/products'));
 };
 
-export const updateProduct = product => dispatch => {
-  axios
-    .put(`/api/products/${product.id}`, product)
-    .then(res => res.data)
-    .then(product => dispatch(_updateProduct(product)));
-};
+export const updateProduct = (product, file) => {
+  return async (dispatch)=> {
+    const formData = new FormData();
+    formData.append('file', file);
+    const {data} = await axios.post('/api/images', formData,{
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    const updatedProduct = product;
+    updatedProduct.imageUrl = data.Location;
+    const response = await axios.put(`/api/products/${product.id}`, updatedProduct);
+    const newProduct = response.data;
+    dispatch(_updateProduct(newProduct));
+  }
+}
 
-export const addProduct = (product, history) => dispatch => {
-  axios
-    .post(`/api/products/`, product)
-    .then(res => res.data)
-    .then(product => dispatch(_updateProduct(product)))
-    .then(() => history.push('/products'));
+export const addProduct = (product, file, history) => {
+  return async (dispatch)=> {
+    const formData = new FormData();
+    formData.append('file', file);
+    const {data} = await axios.post('/api/images', formData,{
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    const updatedProduct = product;
+    updatedProduct.imageUrl = data.Location;
+    const response = await axios.post(`/api/products/`, product);
+    const newProduct = response.data;
+    dispatch(_updateProduct(newProduct));
+    history.push('/products');
+  }
 };
 
 export const addReview = review => dispatch => {
   axios.post('/api/reviews/', review).then(() => dispatch(loadProducts));
 };
+
 export const deleteReview = review => dispatch => {
   axios.delete(`/api/reviews/${review.id}`).then(() => dispatch(loadProducts));
 };
+
 export const updateReview = review => dispatch => {
   axios
     .put(`/api/reviews/${review.id}`, review)
     .then(() => dispatch(loadProducts));
+};
+
+export const loadCategory = category => dispatch => {
+  axios
+    .get(`/api/categories/${category.id}`)
+    .then(res => res.data)
+    .then(category => dispatch(_loadProducts(category.products)));
 };
 
 // REDUCERS
