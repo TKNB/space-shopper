@@ -1,19 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Card, CardImg, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 
 import { updateLineItem } from '../store/cart';
 
 const CartItems = ({ lineItem, updateLineItem }) => {
-  console.log(lineItem)
+  const { product } = lineItem;
   return (
-      <li>
-        Name: {lineItem.product.name} || 
-        Price: ${lineItem.product.price / 100} || 
-        Qty: {lineItem.qty} || 
-        Edit: 
-        <button type="button" onClick={() => updateLineItem(lineItem.id, {qty: 1 + lineItem.qty})}> + </button>
-        <button type="button" onClick={() => updateLineItem(lineItem.id, {qty: -1 + lineItem.qty})}> - </button>
-      </li>
+      <Card>
+        <CardImg width="100%" src={product.imageUrl} alt={product.name} />
+        <CardBody>
+          <CardTitle>{product.name}</CardTitle>
+          <CardText>
+            Price: ${product.price / 100}
+            <br/>
+            Qty: {lineItem.qty}
+          </CardText>
+          <Button type="button" onClick={() => updateLineItem(lineItem.id, {qty: 1 + lineItem.qty})}> + </Button>
+          <Button type="button" onClick={() => updateLineItem(lineItem.id, {qty: -1 + lineItem.qty})}> - </Button>
+        </CardBody>
+      </Card>
   )
 }
 

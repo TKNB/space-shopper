@@ -7,6 +7,7 @@ import {
 } from 'reactstrap';
 
 import { addToCart } from '../store/cart';
+import { currency } from '../../utils/formatter';
 
 class ProductDetail extends Component {
   constructor({product}) {
@@ -35,18 +36,21 @@ class ProductDetail extends Component {
         <div className='flexContainer detailCard'>
           <Card>
             <CardTitle className='cardTitle'>{product.name}</CardTitle>
+            <CardImg src={product.imageUrl} alt={`${product.name} image`} />
             <CardBody>
-              <CardSubtitle>Price: ${product.price}</CardSubtitle>
+              <CardSubtitle>Price: {currency.format(product.price / 100)}</CardSubtitle>
+              <br />
+              <Button onClick={() => addToCart( product, 1, history)}>Add to Cart</Button>
+              <br />
+              <br />
               <CardText>Description: {product.description}</CardText>
               <CardText>Vendor: {product.userId}</CardText>
-              <Button onClick={() => addToCart( product, 1, history)}>Add to Cart</Button>
               {isLoggedIn === product.userId ? null : (
                 <Link to={`/edit/product/${product.id}`}>
                   <Button>Edit Product</Button>
                 </Link>
               )}
             </CardBody>
-            <CardImg className='card detail' src={product.imageUrl} alt={`${product.name} image`} />
           </Card>
         </div>
       </div >

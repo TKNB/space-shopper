@@ -31,18 +31,15 @@ class Cart extends Component {
       return (
         <div id="cart">
           <div id="cartItems">
-            <ul>
               {cart.lineItems ? cart.lineItems.map( lineItem => <CartItems key={lineItem.id} lineItem={lineItem} />): ''}
-            </ul>
           </div>
-          <hr />
           <Checkout auth={auth} order={cart} history={history} />
         </div>
       )
     }
     else {
       return (
-        <div id="cart">Your cart is as empty as a black hole!</div>
+        <div>Your cart is as empty as a black hole!</div>
       )
     }
   }
