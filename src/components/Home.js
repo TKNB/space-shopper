@@ -5,13 +5,13 @@ import {
   Card, CardImg, CardBody, CardTitle, Button, CardDeck
 } from 'reactstrap';
 
-import { addToCart } from '../store/orders';
+import { addToCart } from '../store/cart';
 
 //could DRY this up later with something like ShowProducts component
 
 class Home extends Component {
   render() {
-    const { myProducts, featuredProducts, cart, addToCart } = this.props;
+    const { myProducts, featuredProducts, history, addToCart } = this.props;
     return (
       <div >
         <h3 className='featured'>Featured Products</h3>
@@ -24,12 +24,10 @@ class Home extends Component {
                   <CardTitle className='cardTitle'>{product.name}</CardTitle>
                   <CardBody>
                     <CardImg className='card' src={product.imageUrl} alt={`${product.name} image`} />
-                    <Link to={`/featured/product/${product.id}`} replace>
+                    <Link to={`/product/${product.id}`} replace>
                       <Button>View</Button>
                     </Link>
-                    <Link to={'/cart'} replace>
-                      <Button onClick={() => addToCart(cart, product)}>Add to Cart</Button>
-                    </Link>
+                    <Button onClick={() => addToCart( product, 1, history )}>Add to Cart</Button>
                   </CardBody>
                 </Card>
               </div>
@@ -62,15 +60,8 @@ class Home extends Component {
   }
 };
 
-const mapStateToProps = ({ orders }) => {
-  const cart = orders.find(order => !order.complete);
-  return {
-    cart,
-  }
-}
-
 const mapDispatchToProps = dispatch => ({
-  addToCart: (cart, product) => dispatch(addToCart(cart, product)),
+  addToCart: ( product, qty, history ) => dispatch(addToCart( product, qty, history )),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(null, mapDispatchToProps)(Home);

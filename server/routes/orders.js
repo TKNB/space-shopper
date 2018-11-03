@@ -17,6 +17,19 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+// Get a user's active cart
+router.get('/:id/cart', (req, res, next) => {
+  Order.findOne({
+    where: {
+      userId: req.params.id,
+      complete: false,
+    },
+    include: [{model: LineItem, include: Product}]
+  })
+    .then( cart => res.send(cart))
+    .catch(next)
+})
+
 // Get all orders for a specific user
 router.get('/:id', (req, res, next) => {
   Order.findAll({
@@ -30,8 +43,8 @@ router.get('/:id', (req, res, next) => {
 })
 
 // Create a new order
-router.post('/', (req, res, next) => {
-  Order.create(req.body)
+router.post('/:id', (req, res, next) => {
+  Order.create({userId: req.params.id})
     .then( order => res.send(order))
     .catch(next)
 })

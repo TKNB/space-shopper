@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getCart } from './cart'
 
 const SET_AUTH = 'SET_AUTH';
 
@@ -19,6 +20,7 @@ const exchangeTokenForAuth = () => {
       })
       .then(res => res.data)
       .then(auth => dispatch(_setAuth(auth)))
+      .then(auth => dispatch(getCart()))
       .catch(ex => window.localStorage.removeItem('token'));
   };
 };
