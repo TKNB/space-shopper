@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ProductDetail from './ProductDetail';
+import { CardDeck} from 'reactstrap';
+
+import ProductCard from './ProductCard';
 
 const Products = ({ products }) => {
   return (
     <div>
       <h2>Products</h2>
-      {products.map(product => <ProductDetail key={product.id} product={product} />)}
+      <CardDeck className='flexContainer'>
+        {products.map(product => <ProductCard key={product.id} product={product} />)}
+      </CardDeck>
     </div>
   )
 };
