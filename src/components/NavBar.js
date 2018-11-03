@@ -18,9 +18,7 @@ import { logout } from '../store/auth';
 const NavBar = ({ auth, isLoggedIn, logout }) => {
   return (
     <Navbar color="faded" fixed expand="md">
-      <NavbarBrand href="/">
-        Space Shopper
-      </NavbarBrand>
+      <NavbarBrand href="/">Space Shopper</NavbarBrand>
       <Nav className="ml-auto" navbar>
         <UncontrolledDropdown nav inNavbar>
           <DropdownToggle nav caret>
@@ -50,6 +48,10 @@ const NavBar = ({ auth, isLoggedIn, logout }) => {
                 <NavLink href="#my_orders">My Orders</NavLink>
               </DropdownItem>
               <DropdownItem>
+                {' '}
+                <NavLink href="#add_product">Add a New Product</NavLink>
+              </DropdownItem>
+              <DropdownItem>
                 <NavLink href="#account">
                   Account Details: {auth.username}
                 </NavLink>
@@ -67,11 +69,6 @@ const NavBar = ({ auth, isLoggedIn, logout }) => {
             <NavLink href="#signup">Signup</NavLink>
           </NavItem>
         )}
-        {isLoggedIn ? (
-          <NavItem>
-            <NavLink href="#add_product">Add a New Product</NavLink>
-          </NavItem>
-        ) : null}
         <NavItem>
           <NavLink href="#cart">Cart</NavLink>
         </NavItem>
