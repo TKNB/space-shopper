@@ -15,7 +15,7 @@ class PagedProducts extends Component {
   }
 
   render() {
-    const { products, pager, index } = this.props;
+    const { products, pager, index, match, history, location } = this.props;
     let isActive = '';
     return (
       <div >
@@ -41,17 +41,19 @@ class PagedProducts extends Component {
           </ul>
         </nav>
         <h5>Page {index + 1}</h5>
-        <Products products={products} pager={pager} />
+        <Products products={products} pager={pager} history={history} location={location} />
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ products, productsCount }, { match }) => {
+const mapStateToProps = ({ products, productsCount }, { props }) => {
+  const { match, location, history } = props;
   const index = match.params.index * 1;
   const pageSize = 3;
   const totalPages = Math.ceil(productsCount / pageSize);
   const pager = [];
+  console.log('*****************', productsCount, index, pager)
   for (let i = 0; i < totalPages; i++) {
     pager.push({
       text: i + 1,
@@ -59,11 +61,12 @@ const mapStateToProps = ({ products, productsCount }, { match }) => {
       selected: i === index
     })
   }
-  console.log('*****************', productsCount, index, pager)
   return {
     products,
     index,
     pager,
+    history,
+    location
   }
 }
 

@@ -23,7 +23,7 @@ class Home extends Component {
   }
 
   render() {
-    const { myProducts, featuredProducts } = this.props;
+    const { myProducts, featuredProducts, history } = this.props;
     const { alert } = this.state;
     const { onChangeAlert } = this;
     return (

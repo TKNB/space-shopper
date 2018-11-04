@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { addToCart } from '../store/cart';
 
-const ProductCard = ({ product, addToCart, history, changeAlert }) => {
+const ProductCard = ({ product, addToCart, history, auth, changeAlert }) => {
   return (
     <Card>
       <CardTitle className='cardTitle'>{product.name}</CardTitle>
@@ -22,6 +22,8 @@ const ProductCard = ({ product, addToCart, history, changeAlert }) => {
     </Card >
   )
 }
+
+const mapStateToProps = ({ auth }) => ({ auth })
 
 const mapDispatchToProps = dispatch => ({
   addToCart: (product, qty, history) => dispatch(addToCart(product, qty, history)),
