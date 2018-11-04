@@ -16,22 +16,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { logout } from '../store/auth';
-// import { getCategories } from '../store/categories';
+import { _getCart } from '../store/cart';
 
 
+/* eslint-disable react/prefer-stateless-function*/
 class NavBar extends Component {
-  constructor (props) {
-    super(props);
-    this.toggle = this.toggle.bind(this);
-    this.state = { isOpen: false };
-  }
-
-  toggle() {
-    this.setState({ isOpen: !this.state.isOpen });
-  }
 
   render () {
-    const { auth, isLoggedIn, itemCount, productsCount, logout } = this.props;
+    const { auth, isLoggedIn, itemCount, productsCount, categories, logout } = this.props;
     console.log(window);
     return (
       <Navbar className="fullNavBar" color="faded" expand="md">
@@ -46,9 +38,9 @@ class NavBar extends Component {
             <DropdownMenu right>
               <DropdownItem className="topNavLink" href="#/products">All Products ({productsCount})</DropdownItem>
               <DropdownItem divider />
-              <DropdownItem>Planets</DropdownItem>
-              <DropdownItem>Comets</DropdownItem>
-              <DropdownItem>Stars</DropdownItem>
+              {
+              categories ? categories.map(category => <DropdownItem key={category.id}>{category.name}</DropdownItem>) : null
+              }
             </DropdownMenu>
           </UncontrolledDropdown>
           {isLoggedIn ? (
@@ -88,23 +80,23 @@ class NavBar extends Component {
         {/* THIS IS THE MOBILE VERSION - DETERMINED BY NAV CLASS MOBILE-VERSION */}
         <Nav className="mobile-version d-flex">
           <UncontrolledDropdown nav inNavbar>
-            <DropdownToggle className="hamburgerMenu topNavLink" nav caret >
+            <DropdownToggle className="hamburgerMenu topNavLink" nav >
                 Menu
             </DropdownToggle>
             {isLoggedIn ? (
             <DropdownMenu right>
               <DropdownItem href="#products">
-                    Products ({productsCount})
+                Products ({productsCount})
               </DropdownItem>
               <DropdownItem divider />
               <DropdownItem href="#account">
                 {auth.username}
               </DropdownItem>
               <DropdownItem href="#my_orders">
-                  My Orders
+                My Orders
               </DropdownItem>
               <DropdownItem href="#add_product">
-                  Add a New Product
+                Add a New Product
               </DropdownItem>
               <DropdownItem divider />
               <DropdownItem href="#" onClick={logout}>
@@ -123,8 +115,9 @@ class NavBar extends Component {
               )}
           </UncontrolledDropdown>
           <NavItem>
-            <NavLink className="topNavLink" href="#cart">
-                Cart ({itemCount})
+            <NavLink id="cartIcon" className="topNavLink" href="#cart">
+              <img src="cartIcon.png" alt="cart" height="30px" />
+              <div id="itemCount">{itemCount}</div>
             </NavLink>
           </NavItem>
         </Nav>
@@ -132,20 +125,23 @@ class NavBar extends Component {
     )}
 }
 
-const mapStateToProps = ({ auth, cart, productsCount }) => {
+const mapStateToProps = ({ auth, cart, productsCount, categories }) => {
   return {
     isLoggedIn: auth.id,
     auth,
     itemCount: !cart.id ? 0 : cart.lineItems.reduce((count,lineItem) => {
       return count + lineItem.qty
     },0),
-    productsCount
+    productsCount,
+    categories
   };
 };
 const mapDispatchToProps = dispatch => {
   return {
-    logout: () => dispatch(logout()),
-    // getCategories: () => dispatch(getCategories())
+    logout: () => {
+      dispatch(logout());
+      dispatch(_getCart({}));
+    }
   };
 };
 export default connect(

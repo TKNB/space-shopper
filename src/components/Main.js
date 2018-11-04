@@ -50,7 +50,7 @@ class Main extends Component {
 
             <Route exact path="/products/page/:index?" component={PagedProducts} />
 
-            <Route path="/products" component={Products} />
+            <Route path="/products" render={({ location }) => <Products location={location} />} />
 
 
             <Route path="/add_product" component={AddProduct} />
