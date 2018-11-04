@@ -27,7 +27,7 @@ router.get('/count', (req, res, next) => {
 
 router.get('/page/:index?', (req, res, next) => {
   let index = 0;
-  const limit = 2;
+  const limit = 3;
   if (req.params.index) { index = req.params.index * 1 };
   const offset = index * limit;
   Product.findAll({ limit, offset })

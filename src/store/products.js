@@ -45,15 +45,15 @@ const _updateProduct = product => ({
 
 // THUNKS
 export const loadProducts = (index) => dispatch => {
-  if (index) {
+  if (index !== undefined) {
     return axios.get(`/api/products/page/${index}`)
       .then(res => res.data)
       .then(products => dispatch(_loadProducts(products)));
   }
   else {
     return axios.get(`/api/products/`)
-    .then(res => res.data)
-    .then(products => dispatch(_loadProducts(products)));
+      .then(res => res.data)
+      .then(products => dispatch(_loadProducts(products)));
   }
 };
 
@@ -66,10 +66,10 @@ export const deleteProduct = (product, history) => dispatch => {
 };
 
 export const updateProduct = (product, file) => {
-  return async (dispatch)=> {
+  return async (dispatch) => {
     const formData = new FormData();
     formData.append('file', file);
-    const {data} = await axios.post('/api/images', formData,{
+    const { data } = await axios.post('/api/images', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -83,10 +83,10 @@ export const updateProduct = (product, file) => {
 }
 
 export const addProduct = (product, file, history) => {
-  return async (dispatch)=> {
+  return async (dispatch) => {
     const formData = new FormData();
     formData.append('file', file);
-    const {data} = await axios.post('/api/images', formData,{
+    const { data } = await axios.post('/api/images', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
