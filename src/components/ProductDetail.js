@@ -84,6 +84,9 @@ class ProductDetail extends Component {
               <Button onClick={() => {
                 onChangeAlert(product.name)
                 addToCart(product, 1, history)
+              }}>
+              Add to Cart
+              </Button>
               <br />
               <br />
               <CardText>Description: {product.description}</CardText>
