@@ -158,4 +158,47 @@ body {
   button {
     margin: 5px;
   }
+
+  .noAlert {
+    display: none;
+  }
+
+  .floatRight{
+    float: right;
+  }
+
+  footer {
+    position: fixed;
+    left:0px;
+    bottom:0px;
+    height:75px;
+    width:100%;
+    background: black;
+    margin-top: 25px;
+    padding: 15px 0px;
+  }
+
+  .helloWorld {
+    position: absolute;
+    z-index:10;
+    width: 100%;
+    height: 100%;
+    color: black;
+    background-color: white;
+    text-decoration: none;
+    text-align: left;
+  }
+
+  .basic{
+    height: 1px;
+    background-color: black;
+    border: 0 none;
+  }
+
+  #fixedCorner a {
+    position: fixed;
+    bottom: 40px;
+    right: 15px;
+    color: white;
+  }
 }
