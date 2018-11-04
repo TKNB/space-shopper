@@ -23,6 +23,7 @@ import MyOrders from './MyOrders';
 import Account from './Account';
 import Confirmation from './Confirmation';
 import AddProduct from './AddProduct';
+import HelloWorld from './HelloWorld';
 
 class Main extends Component {
   componentDidMount() {
@@ -35,6 +36,7 @@ class Main extends Component {
       <div>
         <Router>
           <div>
+            <Route path="/hello" component={HelloWorld} />
             <Route component={NavBar} />
             <Route
               exact
