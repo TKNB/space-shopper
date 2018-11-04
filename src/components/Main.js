@@ -21,6 +21,7 @@ import MyOrders from './MyOrders';
 import Account from './Account';
 import Confirmation from './Confirmation';
 import AddProduct from './AddProduct';
+import { getCategories } from '../store/categories';
 
 class Main extends Component {
   componentDidMount() {
@@ -103,7 +104,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(loadProducts());
       dispatch(loadProductsCount());
       dispatch(getOrders());
-      // dispatch(getCart());
+      dispatch(getCategories());
     },
   };
 };

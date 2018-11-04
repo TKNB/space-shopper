@@ -45,11 +45,11 @@ class ProductDetail extends Component {
               <br />
               <CardText>Description: {product.description}</CardText>
               <CardText>Vendor: {product.userId}</CardText>
-              {isLoggedIn === product.userId ? null : (
+              {isLoggedIn === product.userId ? (
                 <Link to={`/edit/product/${product.id}`}>
                   <Button>Edit Product</Button>
                 </Link>
-              )}
+              ) : null }
             </CardBody>
           </Card>
         </div>

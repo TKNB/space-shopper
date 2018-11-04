@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { CardDeck} from 'reactstrap';
+import { CardDeck, Button } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 import { addToCart } from '../store/cart';
 import ProductCard from './ProductCard';
@@ -15,14 +16,15 @@ class Home extends Component {
         <h3 className='featured'>Featured Products</h3>
         <p className='byline'>Each finely crafted in the crucible of the universe.</p>
         <CardDeck className='flexContainer'>
-          {featuredProducts.map(product => <ProductCard key={product.id} product={product} />)}
+          {featuredProducts.map(product => <ProductCard key={product.id} product={product} history={history} />)}
         </CardDeck>
-
+        <br />
+        <Link to="/products"><Button>  View All Products  </Button></Link>
         <hr />
 
         <h3 className='subtitle'>My Products ({myProducts.length})</h3>
         <CardDeck className='flexContainer'>
-          {myProducts.map(product => <ProductCard key={product.id} product={product} />)}
+          {myProducts.map(product => <ProductCard key={product.id} product={product} history={history} />)}
         </CardDeck>
       </div>
     )

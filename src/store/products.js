@@ -65,20 +65,23 @@ export const deleteProduct = (product, history) => dispatch => {
     .then(() => history.push('/products'));
 };
 
-export const updateProduct = (product, file) => {
+export const updateProduct = (product, file, history) => {
   return async (dispatch)=> {
-    const formData = new FormData();
-    formData.append('file', file);
-    const {data} = await axios.post('/api/images', formData,{
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    })
     const updatedProduct = product;
-    updatedProduct.imageUrl = data.Location;
+    if(file) {
+      const formData = new FormData();
+      formData.append('file', file);
+      const {data} = await axios.post('/api/images', formData,{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+      updatedProduct.imageUrl = data.Location;
+    }
     const response = await axios.put(`/api/products/${product.id}`, updatedProduct);
     const newProduct = response.data;
     dispatch(_updateProduct(newProduct));
+    history.push(`/product/${newProduct.id}`)
   }
 }
 
@@ -96,7 +99,7 @@ export const addProduct = (product, file, history) => {
     const response = await axios.post(`/api/products/`, product);
     const newProduct = response.data;
     dispatch(_updateProduct(newProduct));
-    history.push('/products');
+    history.push(`/product/${newProduct.id}`);
   }
 };
 
