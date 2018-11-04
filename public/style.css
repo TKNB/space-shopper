@@ -38,13 +38,12 @@ hr {
 }
 
 .flexContainer {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-  align-items: center;
-  padding: 10px;
-  margin: 10px;
-  align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    align-items: center;
 }
 
 .cardTitle {
@@ -84,6 +83,10 @@ hr {
 .detailCard {
   height: auto;
   width: auto;
+}
+
+.detailCard > .card {
+    height: 800px;
 }
 
 #editForm {

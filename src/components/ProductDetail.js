@@ -9,6 +9,7 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
+  CardDeck,
 } from 'reactstrap';
 
 import { addToCart } from '../store/cart';
@@ -98,9 +99,11 @@ class ProductDetail extends Component {
               ) : null }
             </CardBody>
           </Card>
-          {product.reviews.map(review => {
-            return <ReviewCard key={review} review={review} user={user} />;
-          })}
+          <CardDeck>
+            {product.reviews.map(review => {
+              return <ReviewCard key={review} review={review} />;
+            })}
+          </CardDeck>
         </div>
       </div>
     );
