@@ -13,22 +13,28 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { logout } from '../store/auth';
 import { _getCart } from '../store/cart';
 
 
-/* eslint-disable react/prefer-stateless-function*/
 class NavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.state = { isOpen: false };
+  }
 
-  render () {
+  toggle() {
+    this.setState({ collapse: !this.state.isOpen });
+  }
+
+  render() {
     const { auth, isLoggedIn, itemCount, productsCount, categories, logout } = this.props;
-    console.log(window);
     return (
       <Navbar className="fullNavBar" color="faded" expand="md">
         <NavbarBrand href="/">Space Shopper</NavbarBrand>
-
+      
         {/* THIS IS THE DESKTOP VERSION - DETERMINED BY NAV CLASS DESKTOP-VERSION */}
         <Nav className="d-flex justify-content-end desktop-version">
           <UncontrolledDropdown nav inNavbar>
@@ -36,7 +42,7 @@ class NavBar extends Component {
               Products ({productsCount})
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem className="topNavLink" href="#/products">All Products ({productsCount})</DropdownItem>
+              <DropdownItem className="topNavLink" href="#/products/page/0">All Products ({productsCount})</DropdownItem>
               <DropdownItem divider />
               {
               categories ? categories.map(category => <DropdownItem key={category.id}>{category.name}</DropdownItem>) : null
@@ -85,7 +91,7 @@ class NavBar extends Component {
             </DropdownToggle>
             {isLoggedIn ? (
             <DropdownMenu right>
-              <DropdownItem href="#products">
+              <DropdownItem href="#/products/page/0">
                 Products ({productsCount})
               </DropdownItem>
               <DropdownItem divider />
@@ -122,14 +128,15 @@ class NavBar extends Component {
           </NavItem>
         </Nav>
       </Navbar>
-    )}
+    )
+  }
 }
 
 const mapStateToProps = ({ auth, cart, productsCount, categories }) => {
   return {
     isLoggedIn: auth.id,
     auth,
-    itemCount: !cart.id ? 0 : cart.lineItems.reduce((count,lineItem) => {
+    itemCount: !cart.id ? 0 : cart.lineItems.reduce((count, lineItem) => {
       return count + lineItem.qty
     },0),
     productsCount,

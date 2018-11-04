@@ -55,12 +55,7 @@ class Main extends Component {
             <Route path="/account" component={Account} />
             <Route path="/my_orders" component={MyOrders} />
 
-            <Route
-              exact
-              path="/products/page/:index?"
-              component={PagedProducts}
-            />
-
+            <Route exact path="/products/page/:index?" component={PagedProducts} />
             <Route path="/products" render={({ location }) => <Products location={location} />} />
 
             <Route path="/add_product" component={AddProduct} />
