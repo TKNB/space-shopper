@@ -201,4 +201,12 @@ body {
     right: 15px;
     color: white;
   }
+
+  .rotate{
+    width: 100px;
+    height: 100px;
+    margin: 15px;
+    animation:spin 20s linear infinite;
+  }
+  @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 }
