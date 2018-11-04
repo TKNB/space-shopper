@@ -15,16 +15,20 @@ import {
 import { addToCart } from '../store/cart';
 import { currency } from '../../utils/formatter';
 import ReviewCard from './ReviewCard';
+import ProductAlert from './ProductAlert';
 
 class ProductDetail extends Component {
   constructor({ product, user }) {
-    super({ product, user });
+    super({ product, user })
     this.state = {
       product,
       user,
-      qty: 1,
-    };
+      alert: '',
+      qty: 1
+    }
+    this.onChangeAlert = this.onChangeAlert.bind(this);
   }
+  
   componentDidUpdate(prevProps) {
     if (prevProps.cart !== this.props.cart) {
       console.log('!!!----CART1---!!!');
@@ -35,13 +39,21 @@ class ProductDetail extends Component {
     }
   }
 
+  onChangeAlert(name) {
+    this.setState({
+      alert: `Added ${name} to cart!`
+    })
+  }
+
   render() {
     const { product, addToCart, isLoggedIn, history, user } = this.props;
-    const { qty } = this.state;
+    const { qty, alert } = this.state;
+    const { onChangeAlert } = this;
     if (!product || !user) return null;
     return (
       <div>
-        <Link to="/">
+        <ProductAlert alert={alert} />
+        <Link to='/'>
           <Button>Back</Button>
         </Link>
         <div className="flexContainer detailCard">
@@ -70,9 +82,9 @@ class ProductDetail extends Component {
                 {' '}
                 -{' '}
               </Button>
-              <Button onClick={() => addToCart(product, qty, history)}>
-                Add to Cart
-              </Button>
+              <Button onClick={() => {
+                onChangeAlert(product.name)
+                addToCart(product, 1, history)
               <br />
               <br />
               <CardText>Description: {product.description}</CardText>

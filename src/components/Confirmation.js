@@ -13,23 +13,25 @@ const Confirmation = ({ order, props }) => {
         <br />
         <p>Confirmation Code: {order.id}</p>
         <hr />
-        <h3>Products</h3>
+        <h3>Your Stuff</h3>
         <div id="orderItems">
-            {
-            order.lineItems.map(lineItem => { return (
-              <Card key={lineItem.id}>
-                <CardImg width="100%" src={lineItem.product.imageUrl} alt={lineItem.product.name} />
-                <CardBody>
-                  <CardTitle>{lineItem.product.name}</CardTitle>
-                  <CardText>
-                    Price: ${lineItem.product.price / 100}
-                    <br/>
-                    Qty: {lineItem.qty}
-                  </CardText>
-                </CardBody>
-              </Card>
-            )})
-            }
+          {
+            order.lineItems.map(lineItem => {
+              return (
+                <Card key={lineItem.id}>
+                  <CardImg className='rotate' width="100%" src={lineItem.product.imageUrl} alt={lineItem.product.name} />
+                  <CardBody>
+                    <CardTitle>{lineItem.product.name}</CardTitle>
+                    <CardText>
+                      Price: ${lineItem.product.price / 100}
+                      <br />
+                      Qty: {lineItem.qty}
+                    </CardText>
+                  </CardBody>
+                </Card>
+              )
+            })
+          }
         </div>
         <Button type="button" onClick={() => props.history.push("/")}>Home</Button>
       </div>
