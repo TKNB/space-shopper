@@ -45,7 +45,7 @@ export const addToCart = (product, quantity, history) => {
   return async (dispatch, getState) => {
     var { cart, auth } = getState();
     if (!auth.id) {
-      history.push('/login');
+      return history.push('/login');
     }
     if (!cart.id) {
       try {

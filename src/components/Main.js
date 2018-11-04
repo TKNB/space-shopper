@@ -23,7 +23,6 @@ import MyOrders from './MyOrders';
 import Account from './Account';
 import Confirmation from './Confirmation';
 import AddProduct from './AddProduct';
-import { getCategories } from '../store/categories';
 import HelloWorld from './HelloWorld';
 
 class Main extends Component {
@@ -55,8 +54,8 @@ class Main extends Component {
             <Route path="/account" component={Account} />
             <Route path="/my_orders" component={MyOrders} />
 
-            <Route exact path="/products/page/:index?" component={PagedProducts} />
-            <Route path="/products" render={({ location }) => <Products location={location} />} />
+            <Route exact path="/products/page/:index?" render={(props) => <PagedProducts props={props} />} />
+            <Route exact path="/products" render={({ location }) => <Products location={location} />} />
 
             <Route path="/add_product" component={AddProduct} />
             <Route

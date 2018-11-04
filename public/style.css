@@ -86,7 +86,7 @@ hr {
 }
 
 .detailCard > .card {
-    height: 800px;
+    height: 600px;
 }
 
 #editForm {
@@ -197,6 +197,46 @@ button {
   display: flex;
   flex-flow: row nowrap;
 }
+
+footer {
+  position: fixed;
+  left:0px;
+  bottom:0px;
+  height:75px;
+  width:100%;
+  background: black;
+  margin-top: 25px;
+  padding: 15px 0px;
+  color: whitesmoke;
+  text-decoration: none;
+}
+
+#fixedCorner a {
+  position: fixed;
+  bottom: 40px;
+  right: 15px;
+  color: white;
+}
+
+.helloWorld {
+  position: absolute;
+  z-index:10;
+  width: 100%;
+  height: 100%;
+  color: black;
+  background-color: white;
+  text-decoration: none;
+  text-align: left;
+}
+
+.rotate{
+  width: 100px;
+  height: 100px;
+  margin: 15px;
+  animation:spin 20s linear infinite;
+}
+
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 @media (min-width: 775px) {
   .desktop-version {

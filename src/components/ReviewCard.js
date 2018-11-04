@@ -7,7 +7,9 @@ const ReviewCard = ({ review, user }) => {
     <Card>
       <CardTitle>Rating: {review.rating}</CardTitle>
       <CardText>
-        <div>{review.review}</div> by {user.username}
+        {review.review}
+        <br />
+        by {user.username}
       </CardText>
     </Card>
   );

@@ -19,7 +19,7 @@ import ProductAlert from './ProductAlert';
 
 class ProductDetail extends Component {
   constructor({ product, user }) {
-    super({ product, user })
+    super(product, user)
     this.state = {
       product,
       user,
@@ -100,9 +100,9 @@ class ProductDetail extends Component {
             </CardBody>
           </Card>
           <CardDeck>
-            {product.reviews.map(review => {
-              return <ReviewCard key={review} review={review} />;
-            })}
+            {product.reviews ? product.reviews.map(review => {
+              return <ReviewCard key={review.id} review={review} />;
+            }) : null}
           </CardDeck>
         </div>
       </div>
