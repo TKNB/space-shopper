@@ -7,6 +7,7 @@ import { loadProductsCount } from '../store/productsCount';
 import { getOrders } from '../store/orders';
 import { getCart } from '../store/cart';
 import { getUsers } from '../store/users';
+import { getCategories } from '../store/categories';
 import { exchangeTokenForAuth } from '../store/auth';
 
 import Signup from './Signup';
@@ -110,6 +111,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(loadProductsCount());
       dispatch(getOrders());
       dispatch(getUsers());
+      dispatch(getCategories());
       // dispatch(getCart());
     },
   };
