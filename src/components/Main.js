@@ -60,7 +60,7 @@ class Main extends Component {
               component={PagedProducts}
             />
 
-            <Route path="/products" component={Products} />
+            <Route path="/products" render={({ location }) => <Products location={location} />} />
 
             <Route path="/add_product" component={AddProduct} />
             <Route
