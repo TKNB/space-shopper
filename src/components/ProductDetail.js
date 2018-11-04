@@ -90,12 +90,12 @@ class ProductDetail extends Component {
               <br />
               <br />
               <CardText>Description: {product.description}</CardText>
-              <CardText>Vendor: {user.username}</CardText>
-              {isLoggedIn === product.userId ? null : (
+              <CardText>Vendor: {product.userId}</CardText>
+              {isLoggedIn === product.userId ? (
                 <Link to={`/edit/product/${product.id}`}>
                   <Button>Edit Product</Button>
                 </Link>
-              )}
+              ) : null }
             </CardBody>
           </Card>
           {product.reviews.map(review => {

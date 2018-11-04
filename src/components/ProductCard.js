@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { addToCart } from '../store/cart';
 
-const ProductCard = ({ product, addToCart, changeAlert }) => {
+const ProductCard = ({ product, addToCart, history, changeAlert }) => {
   return (
     <Card>
       <CardTitle className='cardTitle'>{product.name}</CardTitle>

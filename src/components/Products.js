@@ -5,13 +5,13 @@ import queryString from 'query-string'
 
 import ProductCard from './ProductCard';
 
-const Products = ({ products, category }) => {
+const Products = ({ products, history, category }) => {
   if (products) {
     return (
       <div>
         <h2>Products{ category ? `: ${category.name}` : null}</h2>
         <CardDeck className='flexContainer'>
-          {products.map(product => <ProductCard key={product.id} product={product} />)}
+          {products.map(product => <ProductCard key={product.id} product={product} history={history} />)}
         </CardDeck>
       </div>
     )

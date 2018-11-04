@@ -23,6 +23,7 @@ import MyOrders from './MyOrders';
 import Account from './Account';
 import Confirmation from './Confirmation';
 import AddProduct from './AddProduct';
+import { getCategories } from '../store/categories';
 import HelloWorld from './HelloWorld';
 
 class Main extends Component {
@@ -107,9 +108,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(loadProducts());
       dispatch(loadProductsCount());
       dispatch(getOrders());
-      dispatch(getUsers());
       dispatch(getCategories());
-      // dispatch(getCart());
+      dispatch(getUsers());
     },
   };
 };
