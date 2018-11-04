@@ -202,6 +202,10 @@ body {
     color: white;
   }
 
+  .selectedPage{
+    color: tomato;
+  }
+
   .rotate{
     width: 100px;
     height: 100px;

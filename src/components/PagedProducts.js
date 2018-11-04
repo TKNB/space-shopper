@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { loadProducts } from '../store/products';
 import Products from './Products';
@@ -14,38 +15,42 @@ class PagedProducts extends Component {
   }
 
   render() {
-    const { products, pager } = this.props;
+    const { products, pager, index } = this.props;
+    let isActive = '';
     return (
-      <div>
-        <Products products={products} pager={pager} />
-        <ul>
-          {
-            pager.map(page => {
-              if (page.selected) {
+      <div >
+        <nav aria-label="Page navigation">
+          <ul className="pagination">
+            {
+              pager.map(page => {
+                if (page.selected) {
+                  isActive = 'page-item selectedPage';
+                } else {
+                  isActive = 'page-item'
+                }
                 return (
-                  <li key={page.text}>{page.text}</li>
+                  <li className={isActive} key={page.text}>
+                    <Link to={`/products/page/${page.value}`}>
+                      {page.text}
+                    </Link>
+                  </li>
                 );
-              }
-              return (
-                <li key={page.text}>
-                  <Link to={`/products/page/${page.value}`}>
-                    {page.text}
-                  </Link>
-                </li>
-              );
-            })
+              })
 
-          }
-        </ul>
+            }
+          </ul>
+        </nav>
+        <h5>Page {index + 1}</h5>
+        <Products products={products} pager={pager} />
       </div>
     )
   }
 }
 
-const mapStateToProps = ({ products, productCount }, { match }) => {
+const mapStateToProps = ({ products, productsCount }, { match }) => {
   const index = match.params.index * 1;
-  const pageSize = 2;
-  const totalPages = Math.ceil(productCount / pageSize);
+  const pageSize = 3;
+  const totalPages = Math.ceil(productsCount / pageSize);
   const pager = [];
   for (let i = 0; i < totalPages; i++) {
     pager.push({
@@ -54,6 +59,7 @@ const mapStateToProps = ({ products, productCount }, { match }) => {
       selected: i === index
     })
   }
+  console.log('*****************', productsCount, index, pager)
   return {
     products,
     index,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CardDeck} from 'reactstrap';
+import { CardDeck } from 'reactstrap';
 
 import ProductCard from './ProductCard';
 

@@ -52,7 +52,7 @@ class Main extends Component {
 
             <Route exact path="/products/page/:index?" component={PagedProducts} />
 
-            <Route path="/products" component={Products} />
+            <Route exact path="/products" component={Products} />
 
 
             <Route path="/add_product" component={AddProduct} />

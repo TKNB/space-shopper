@@ -13,14 +13,13 @@ import {
   DropdownItem,
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { logout } from '../store/auth';
 // import { getCategories } from '../store/categories';
 
 
 class NavBar extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
     this.state = { isOpen: false };
@@ -30,7 +29,7 @@ class NavBar extends Component {
     this.setState({ collapse: !this.state.isOpen });
   }
 
-  render () {
+  render() {
     const { auth, isLoggedIn, itemCount, productsCount, logout } = this.props;
     return (
       <Navbar className="fullNavBar" color="faded" fixed expand="md">
@@ -42,7 +41,7 @@ class NavBar extends Component {
                 Products ({productsCount})
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem className="topNavLink" href="#/products">All Products ({productsCount})</DropdownItem>
+                <DropdownItem className="topNavLink" href="#/products/page/0">All Products ({productsCount})</DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem>Planets</DropdownItem>
                 <DropdownItem>Comets</DropdownItem>
@@ -50,56 +49,57 @@ class NavBar extends Component {
               </DropdownMenu>
             </UncontrolledDropdown>
             {isLoggedIn ? (
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle className="topNavLink" nav caret>
-                {auth.username}
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  {' '}
-                  <NavLink href="#my_orders">
-                    My Orders
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle className="topNavLink" nav caret>
+                  {auth.username}
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    {' '}
+                    <NavLink href="#my_orders">
+                      My Orders
                   </NavLink>
-                </DropdownItem>
-                <DropdownItem>
-                  <NavLink href="#add_product">
-                    Add a New Product
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavLink href="#add_product">
+                      Add a New Product
                   </NavLink>
-                </DropdownItem>
-                <DropdownItem>
-                  <NavLink href="#account">
-                    Account Details
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavLink href="#account">
+                      Account Details
                   </NavLink>
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem href="#" onClick={logout}>
-                  <NavLink >
-                    Logout
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem href="#" onClick={logout}>
+                    <NavLink >
+                      Logout
                   </NavLink>
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
-          ) : (
-            <NavItem>
-              <NavLink className="topNavLink" href="#login">Login</NavLink>
-            </NavItem>
-            )}
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            ) : (
+                <NavItem>
+                  <NavLink className="topNavLink" href="#login">Login</NavLink>
+                </NavItem>
+              )}
             <NavItem>
               <NavLink className="topNavLink" href="#cart">Cart ({itemCount})</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
-    )}
+    )
+  }
 }
 
 const mapStateToProps = ({ auth, cart, productsCount }) => {
   return {
     isLoggedIn: auth.id,
     auth,
-    itemCount: !cart.id ? 0 : cart.lineItems.reduce((count,lineItem) => {
+    itemCount: !cart.id ? 0 : cart.lineItems.reduce((count, lineItem) => {
       return count + lineItem.qty
-    },0),
+    }, 0),
     productsCount
   };
 };
