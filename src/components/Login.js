@@ -58,23 +58,21 @@ class Login extends Component {
           <FormGroup>
             <Label>Password</Label>
             <Input
-              invalid
+              invalid={error !== ''}
               value={password}
               name="password"
               onChange={this.handleChange}
               type="password"
             />
-            {error === '' ? null : <FormFeedback>{error}</FormFeedback>}
+            <FormFeedback tooltip>{error}</FormFeedback>
           </FormGroup>
-          
+
           <Button disabled={!this.validateForm()} type="submit">
             Login
           </Button>
           <br />
           <br />
-          <Link to="/signup">
-            New astronaut? Sign up.
-          </Link>
+          <Link to="/signup">New astronaut? Sign up.</Link>
         </Form>
       </div>
     );

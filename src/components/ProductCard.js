@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { addToCart } from '../store/cart';
 
-const ProductCard = ({ product, addToCart, history }) => {
+const ProductCard = ({ product, addToCart, history, changeAlert }) => {
   return (
     <Card>
       <CardTitle className='cardTitle'>{product.name}</CardTitle>
@@ -14,14 +14,17 @@ const ProductCard = ({ product, addToCart, history }) => {
         <Link to={`/product/${product.id}`} replace>
           <Button>View</Button>
         </Link>
-        <Button onClick={() => addToCart( product, 1, history )}>Add to Cart</Button>
+        <Button onClick={() => {
+          addToCart(product, 1, history)
+          changeAlert(product.name)
+        }}>Add to Cart</Button>
       </CardBody>
-    </Card>
+    </Card >
   )
 }
 
 const mapDispatchToProps = dispatch => ({
-  addToCart: ( product, qty, history ) => dispatch(addToCart( product, qty, history )),
+  addToCart: (product, qty, history) => dispatch(addToCart(product, qty, history)),
 })
 
 export default connect(null, mapDispatchToProps)(ProductCard);

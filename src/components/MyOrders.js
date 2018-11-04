@@ -10,6 +10,8 @@ import {
   CardBody,
 } from 'reactstrap';
 
+import { currency } from '../../utils/formatter';
+
 const MyOrders = ({ orders }) => {
   return (
     <div>
@@ -27,7 +29,7 @@ const MyOrders = ({ orders }) => {
                   <CardBody>
                     <CardTitle>{lineItem.product.name}</CardTitle>
                     <CardText>
-                      Price: ${lineItem.product.price / 100}
+                      Price: {currency.format(lineItem.product.price / 100)}
                       <br/>
                       Qty: {lineItem.qty}
                     </CardText>
