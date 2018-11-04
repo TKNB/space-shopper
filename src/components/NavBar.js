@@ -45,7 +45,7 @@ class NavBar extends Component {
               <DropdownItem className="topNavLink" href="#/products/page/0">All Products ({productsCount})</DropdownItem>
               <DropdownItem divider />
               {
-              categories ? categories.map(category => <DropdownItem key={category.id}>{category.name}</DropdownItem>) : null
+              categories ? categories.map(category => <DropdownItem href={`#/products?category=${category.name}`}key={category.id}>{category.name}</DropdownItem>) : null
               }
             </DropdownMenu>
           </UncontrolledDropdown>
