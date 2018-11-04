@@ -29,7 +29,10 @@ router.use((req, res, next) => {
 router.post('/auth', (req, res, next) => {
   const { username, password } = req.body;
   User.findOne({
-    where: { username, password },
+    where: {
+      username,
+      password: jwt.encode(password, process.env.JWT_SECRET || 'TKNB'),
+    },
   })
     .then(user => {
       if (!user) {
@@ -44,6 +47,12 @@ router.post('/auth', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/', (req, res, next) => {
+  User.findAll()
+    .then(users => res.send(users))
+    .catch(next);
+});
+
 router.get('/auth', (req, res, next) => {
   if (!req.user) {
     return next({ status: 401 });
@@ -53,15 +62,18 @@ router.get('/auth', (req, res, next) => {
 
 // Create a new user
 router.post('/', (req, res, next) => {
-  User.create(req.body)
+  const { username, firstName, lastName, password } = req.body;
+  const encryptPass = jwt.encode(password, process.env.JWT_SECRET || 'TKNB');
+  User.create({ username, firstName, lastName, password: encryptPass })
     .then(user => res.send(user))
     .catch(next);
 });
 
 // Update a user
 router.put('/:id', (req, res, next) => {
+  const { username, firstName, lastName } = req.body;
   User.findById(req.params.id)
-    .then(user => user.update(req.body))
+    .then(user => user.update({ username, firstName, lastName }))
     .then(user => res.send(user))
     .catch(next);
 });
