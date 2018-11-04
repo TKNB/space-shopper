@@ -173,7 +173,7 @@ class EditProduct extends Component {
           </Button>
         </Form>
         <br></br>
-        <Button block type="submit"  onClick={_deleteProduct}>
+        <Button block type="submit"  onClick={_deleteProduct} style={{'margin-bottom': '120px'}}>
           DELETE PRODUCT
         </Button>
       </div>

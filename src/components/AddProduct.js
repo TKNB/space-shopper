@@ -188,7 +188,7 @@ class AddProduct extends Component {
           </Alert>
           <br></br>
           <br></br>
-          <Button block type="submit" >
+          <Button block type="submit" style={{'margin-bottom': '120px'}}>
             ADD PRODUCT
           </Button>
         </Form>
