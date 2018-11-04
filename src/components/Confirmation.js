@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardImg, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 
 import ordersReducer from '../store/orders';
+import { currency } from '../../utils/formatter';
 
 const Confirmation = ({ order, props }) => {
   if (order) {
@@ -23,7 +24,7 @@ const Confirmation = ({ order, props }) => {
                   <CardBody>
                     <CardTitle>{lineItem.product.name}</CardTitle>
                     <CardText>
-                      Price: ${lineItem.product.price / 100}
+                      Price: {currency.format(lineItem.product.price / 100)}
                       <br />
                       Qty: {lineItem.qty}
                     </CardText>

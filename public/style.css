@@ -2,161 +2,237 @@ body {
   background-image: url('milky-way.jpg');
 }
 
-@media all and (min-width: 480px) {
-  .Login {
-    padding: 60px 0;
-  }
+.Login {
+  padding: 60px 0;
+}
 
-  * {
-    color: whitesmoke;
-    text-align: center;
-  }
+* {
+  color: whitesmoke;
+  text-align: center;
+}
 
-  hr {
-    height: 5px;
-    margin: 20px;
-    background-color: greenyellow;
-    border: 0 none;
-  }
+hr {
+  height: 5px;
+  margin: 20px;
+  background-color: greenyellow;
+  border: 0 none;
+}
 
-  .Login form {
-    margin: 0 auto;
-    max-width: 320px;
-  }
+.Login form {
+  margin: 0 auto;
+  max-width: 320px;
+}
 
-  .byline {
-    color: whitesmoke;
-    font-style: oblique;
-  }
+.byline {
+  color: whitesmoke;
+  font-style: oblique;
+}
 
-  .featured {
-    color: greenyellow;
-    font-size: 2em;
-  }
+.featured {
+  color: greenyellow;
+  font-size: 2em;
+}
 
-  .subtitle {
-    font-size: 2em;
-  }
+.subtitle {
+  font-size: 2em;
+}
 
-  .flexContainer {
+.flexContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  margin: 10px;
+  align-items: center;
+}
+
+.cardTitle {
+  font-family: 'Londrina Outline', cursive;
+  font-size: 3em;
+}
+
+.card {
+  width: 250px;
+  height: 400px;
+  margin: 10px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0);
+  align-content: center;
+}
+
+.cardDetails {
+  background-color: rgba(255, 255, 255, 0);
+  align-content: center;
+}
+
+.is-invalid {
+  border-style: solid;
+  border-color: red;
+}
+
+.card-img {
+  width: 200px;
+  height: 200px;
+}
+
+.detail {
+  width: 300px;
+  height: 300px;
+}
+
+.detailCard {
+  height: auto;
+  width: auto;
+}
+
+#editForm {
+  left: 0;
+  right: 0;
+  margin: 10px auto;
+  width: 85%;
+  max-width: 1000px;
+  text-align: center;
+}
+
+#editForm h1 {
+  margin-top: 80px;
+}
+
+#editForm img {
+  width: 80%;
+  max-width: 250px;
+  border: 1px solid;
+}
+
+#cartItems {
+  flex: 3;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+#checkout {
+  flex: 1;
+  background-color: rgb(224, 224, 235, .3);
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#checkout {
+  flex: 1;
+  background-color: rgb(224, 224, 235, 0.3);
+  border-radius: 10px;
+}
+
+#checkout > .card {
+  border: none;
+}
+
+#checkout table {
+  width: 100%;
+}
+
+#checkout td {
+  text-align: left;
+}
+
+#checkout .val {
+  text-align: right;
+}
+
+#orderItems {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+
+.nav {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fullNavBar * {
+  color: #00004d;
+}
+
+.Login a {
+  color: whitesmoke;
+}
+
+.topNavLink {
+  font-weight: bold;
+}
+
+a.navbar-brand {
+  font-weight: bold;
+  padding-top: 12px;
+}
+
+nav div.dropdown-menu * {
+  text-align: left;
+}
+
+button {
+  margin: 5px;
+}
+
+#itemCount {
+  background-color: #00004d;
+  color: whitesmoke;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  font-size: 15px;
+  padding: 5px;
+  margin-left: 5px;
+}
+
+#cartIcon {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+@media (min-width: 775px) {
+  .desktop-version {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px;
-    margin: 10px;
-    align-items: center;
   }
-
-  .cardTitle {
-    font-family: 'Londrina Outline', cursive;
-    font-size: 3em;
-  }
-
-  .card {
-    width: 250px;
-    height: 400px;
-    margin: 10px;
-    padding: 10px;
-    background-color: rgba(255, 255, 255, 0);
-    align-content: center;
-  }
-
-  .card-img {
-    width: 200px;
-    height: 200px;
-  }
-
-  .detail {
-    width: 300px;
-    height: 300px;
-  }
-
-  .detailCard {
-    height: auto;
-    width: auto;
-  }
-
-  #editForm {
-    left: 0;
-    right: 0;
-    margin: 10px auto;
-    width: 85%;
-    max-width: 1000px;
-    text-align: center;
-  }
-
-  #editForm h1 {
-    margin-top: 80px;
-  }
-
-  #editForm img {
-    width: 80%;
-    max-width: 250px;
-    border: 1px solid;
+  
+  .mobile-version {
+    display: none;
   }
 
   #cart {
     display: flex;
+    flex-direction: row;
     padding: 10px;
   }
+}
 
-  #cartItems {
-    flex: 3;
+@media (max-width: 774px) {
+  .desktop-version {
+    display: none;
+  }
+
+  .mobile-verion {
     display: flex;
-    flex-flow: row wrap;
+    padding-top: 16px;
   }
 
-  #checkout {
-    flex: 1;
-    background-color: rgb(224, 224, 235, .3);
-    border-radius: 10px;
+  li {
+    list-style-type: none;
   }
 
-  #checkout table {
-    width: 100%;
+  .hamburgerMenu {
+    padding-top: 12px;
   }
 
-  #checkout td {
-    text-align: left;
-  }
-
-  #checkout .val {
-    text-align: right;
-  }
-
-  #orderItems {
+  #cart {
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-  }
-
-  .nav {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .fullNavBar * {
-    color: #00004d;
-  }
-
-  .Login a {
-    color: whitesmoke;
-  }
-
-  .topNavLink {
-    font-weight: bold;
-  }
-
-  a.navbar-brand {
-    font-weight: bold;
-    padding-top: 10px;
-  }
-
-  button {
-    margin: 5px;
+    flex-direction: column;
+    padding: 10px;
   }
 
   .noAlert {

@@ -5,6 +5,7 @@ const Product = require('./Product');
 const User = require('./User');
 const Category = require('./Category');
 const Review = require('./Review');
+const jwt = require('jwt-simple');
 
 Order.belongsTo(User);
 User.hasMany(Order);
@@ -32,19 +33,22 @@ const syncAndSeed = () =>
             username: 'CarlSagan@cosmos.net',
             firstName: 'Carl',
             lastName: 'Sagan',
-            password: 'yuman',
+            password: jwt.encode('yuman', process.env.JWT_SECRET || 'TKNB'),
           }),
           User.create({
             username: 'NicolausCopernicus@heliocentric.net',
             firstName: 'Nicolaus',
             lastName: 'Copernicus',
-            password: 'flatEarth',
+            password: jwt.encode('flatEarth', process.env.JWT_SECRET || 'TKNB'),
           }),
           User.create({
             username: 'AlbertEinstein@emc2.net',
             firstName: 'Albert',
             lastName: 'Einstein',
-            password: 'itsAllRelative',
+            password: jwt.encode(
+              'ItsAllRelative',
+              process.env.JWT_SECRET || 'TKNB'
+            ),
           }),
         ]
       );
