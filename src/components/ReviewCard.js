@@ -1,10 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Card, CardTitle, CardText, CardFooter } from 'reactstrap';
 
 const ReviewCard = ({ review, user }) => {
   return (
     <Card>
-      <CardTitle className="cardTitle">Rating: {review.rating}</CardTitle>
+      <CardTitle>Rating: {review.rating}</CardTitle>
       <CardText>
         <div>{review.review}</div> by {user.username}
       </CardText>
@@ -12,4 +13,10 @@ const ReviewCard = ({ review, user }) => {
   );
 };
 
-export default ReviewCard;
+const mapStateToProps = ({ users }, { review }) => {
+  const user = users.filter(user => user.id === review.userId).pop();
+  return {
+    user,
+  };
+};
+export default connect(mapStateToProps)(ReviewCard);

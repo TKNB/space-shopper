@@ -181,6 +181,12 @@ const syncAndSeed = () =>
           productId: milkyWay.id,
         }),
         Review.create({
+          rating: 5,
+          review: 'Best candy ever!',
+          userId: albertEinstein.id,
+          productId: milkyWay.id,
+        }),
+        Review.create({
           rating: 4,
           review: 'pop ROCKS!!!',
           userId: albertEinstein.id,
