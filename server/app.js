@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
-const logger = require('morgan');
+// const logger = require('morgan');
 const path = require('path');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use('/api', require('./routes'));
 app.use(express.static(path.join(__dirname, '..', 'dist')));
