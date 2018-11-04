@@ -10,69 +10,74 @@ const UPDATE_LINE_ITEM = 'UPDATE_LINE_ITEM';
 const cartReducer = (cart = {}, action) => {
   switch (action.type) {
     case GET_CART:
-      return action.cart
+      return action.cart;
     default:
-      return cart
+      return cart;
   }
-}
+};
 
 // THUNK CREATORS
 export const getCart = () => {
   return (dispatch, getState) => {
     const { auth } = getState();
-    return axios.get(`/api/orders/${auth.id}/cart`)
+    return axios
+      .get(`/api/orders/${auth.id}/cart`)
       .then(res => res.data)
-      .then(cart => dispatch(_getCart(cart)))
-  }
-}
+      .then(cart => dispatch(_getCart(cart)));
+  };
+};
 
 export const updateLineItem = (lineItemId, data) => {
-  return (dispatch) => {
+  return dispatch => {
     if (data.qty === 0) {
-      axios.delete(`/api/orders/line_item/${lineItemId}`)
-        .then(() => dispatch(getCart()))
+      axios
+        .delete(`/api/orders/line_item/${lineItemId}`)
+        .then(() => dispatch(getCart()));
+    } else {
+      axios
+        .put(`/api/orders/line_item/${lineItemId}`, data)
+        .then(() => dispatch(getCart()));
     }
-    else {
-      axios.put(`/api/orders/line_item/${lineItemId}`, data)
-        .then(() => dispatch(getCart()))
-    }
-  }
-}
+  };
+};
 
 export const addToCart = (product, quantity, history) => {
   return async (dispatch, getState) => {
     var { cart, auth } = getState();
     if (!auth.id) {
-      history.push('/login')
+      history.push('/login');
     }
     if (!cart.id) {
       try {
-        const { data } = await axios.post(`/api/orders/${auth.id}`)
+        const { data } = await axios.post(`/api/orders/${auth.id}`);
         cart = data;
-        cart.lineItems = []
+        cart.lineItems = [];
         dispatch(_getCart(cart));
-      }
-      catch (ex) {
-        console.log(ex)
+      } catch (ex) {
+        console.log(ex);
       }
     }
-    const item = cart.lineItems.find(item => item.product.name === product.name);
+    const item = cart.lineItems.find(
+      item => item.product.name === product.name
+    );
     if (item) {
       const qty = item.qty + quantity;
-      dispatch(updateLineItem(item.id, { qty }))
+      dispatch(updateLineItem(item.id, { qty }));
     } else {
       try {
-        await axios.post(`/api/orders/${cart.id}/line_item`, { productId: product.id })
-        dispatch(getCart())
-      }
-      catch (ex) {
-        console.log(ex)
+        await axios.post(`/api/orders/${cart.id}/line_item`, {
+          productId: product.id,
+          qty: quantity,
+        });
+        dispatch(getCart());
+      } catch (ex) {
+        console.log(ex);
       }
     }
-  }
+  };
 };
 
 // ACTION CREATORS
-export const _getCart = (cart) => ({ type: GET_CART, cart });
+export const _getCart = cart => ({ type: GET_CART, cart });
 
 export default cartReducer;

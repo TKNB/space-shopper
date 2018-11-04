@@ -5,44 +5,50 @@ import axios from 'axios';
 //};
 
 // ACTION TYPES
-const GET_USER = 'GET_USER';
-const SET_USER = 'SET_USER';
+const GET_USERS = 'GET_USERS';
+const CREATE_USER = 'CREATE_USER';
 const EDIT_USER = 'EDIT_USER';
-
+const DELETE_USER = 'DELETE_USER';
 // ACTION CREATORS
-const _getUser = user => ({
-  type: GET_USER,
-  user,
+const _getUsers = users => ({
+  type: GET_USERS,
+  users,
 });
 
-const _setUser = user => ({
-  type: SET_USER,
+const _createUser = user => ({
+  type: CREATE_USER,
   user,
 });
 
 const _editUser = user => ({
-  type: SET_USER,
+  type: EDIT_USER,
+  user,
+});
+
+const _deleteUser = user => ({
+  type: DELETE_USER,
   user,
 });
 
 // THUNK CREATORS
-const getUser = user => {
+const getUsers = users => {
   return dispatch => {
     return axios
-      .get(`/api/users/${user.id}`)
+      .get(`/api/users/`)
       .then(res => res.data)
-      .then(user => {
-        dispatch(_getUser(user));
+      .then(users => {
+        dispatch(_getUsers(users));
       });
   };
 };
-const setUser = user => {
+
+const createUser = user => {
   return dispatch => {
     return axios
       .post(`/api/users`, user)
       .then(res => res.data)
       .then(user => {
-        dispatch(_setUser(user));
+        dispatch(_createUser(user));
       });
   };
 };
@@ -56,21 +62,32 @@ const editUser = user => {
       });
   };
 };
+const deleteUser = user => {
+  return dispatch => {
+    return axios.delete(`/api/users/${user.id}`).then(() => {
+      dispatch(_deleteUser(user));
+    });
+  };
+};
 // REDUCERS
-const usersReducer = (user = {}, action) => {
+const usersReducer = (users = [], action) => {
   switch (action.type) {
-    case GET_USER:
-      return action.user;
-    case SET_USER:
-      return action.user;
+    case GET_USERS:
+      return action.users;
+    case CREATE_USER:
+      return [...users, action.user];
     case EDIT_USER:
-      return action.user;
+      return [...users].map(user => {
+        if (user.id === action.user.id) return action.user;
+      });
+    case DELETE_USER:
+      return [...users].filter(user => user.id !== action.user.id);
     default:
       break;
   }
-  return user;
+  return users;
 };
 
 export default usersReducer;
 
-export { getUser, setUser, editUser };
+export { createUser, deleteUser, editUser, getUsers };

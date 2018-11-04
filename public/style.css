@@ -109,7 +109,7 @@ body {
 
   #checkout {
     flex: 1;
-    background-color: rgb(224, 224, 235, .3);
+    background-color: rgb(224, 224, 235, 0.3);
     border-radius: 10px;
   }
 
