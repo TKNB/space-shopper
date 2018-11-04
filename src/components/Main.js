@@ -6,6 +6,8 @@ import { loadProducts } from '../store/products';
 import { loadProductsCount } from '../store/productsCount';
 import { getOrders } from '../store/orders';
 import { getCart } from '../store/cart';
+import { getUsers } from '../store/users';
+import { getCategories } from '../store/categories';
 import { exchangeTokenForAuth } from '../store/auth';
 
 import Signup from './Signup';
@@ -36,7 +38,9 @@ class Main extends Component {
           <div>
             <Route path="/hello" component={HelloWorld} />
             <Route component={NavBar} />
-            <Route exact path="/"
+            <Route
+              exact
+              path="/"
               render={({ history }) => (
                 <Home
                   myProducts={myProducts}
@@ -50,10 +54,13 @@ class Main extends Component {
             <Route path="/account" component={Account} />
             <Route path="/my_orders" component={MyOrders} />
 
-            <Route exact path="/products/page/:index?" component={PagedProducts} />
+            <Route
+              exact
+              path="/products/page/:index?"
+              component={PagedProducts}
+            />
 
             <Route path="/products" component={Products} />
-
 
             <Route path="/add_product" component={AddProduct} />
             <Route
@@ -105,6 +112,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(loadProducts());
       dispatch(loadProductsCount());
       dispatch(getOrders());
+      dispatch(getUsers());
+      dispatch(getCategories());
       // dispatch(getCart());
     },
   };
